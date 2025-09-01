@@ -34,6 +34,10 @@ FORM check_matnr CHANGING lv_matnr TYPE ze_matnr.
     INTO lv_matnr
     WHERE matnr = p_MATNR.
 
+    IF sy-subrc NE 0.
+     MESSAGE 'Erro ao fazer o select!' TYPE 'E'.
+    ENDIF.
+
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form update_zmat
@@ -48,16 +52,14 @@ FORM update_zmat USING lv_matnr TYPE ze_matnr.
   IF lv_matnr IS NOT INITIAL.
 
     UPDATE zmat
-      SET descr = p_DESCR
-      WHERE matnr = p_MATNR.
+      SET descr = @p_DESCR,
+      unid = @p_UNID,
+      ativo = @p_ATIVO
+      WHERE matnr = @p_MATNR.
 
-    UPDATE zmat
-    SET unid = p_UNID
-    WHERE matnr = p_MATNR.
-
-    UPDATE zmat
-    SET ativo = p_ATIVO
-    WHERE matnr = p_MATNR.
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    ENDIF.
 
   ENDIF.
 
@@ -82,6 +84,10 @@ FORM create_zmat USING lv_matnr TYPE ze_matnr.
 
     INSERT zmat FROM ls_itab_zmat.
 
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+    ENDIF.
+
   ENDIF.
 
 ENDFORM.
@@ -99,6 +105,10 @@ FORM alv_event.
       INTO TABLE lt_tab_zmat
       WHERE matnr = ls_itab_zmat-matnr.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
+
   TRY.
       CALL METHOD cl_salv_table=>factory
         EXPORTING
@@ -113,20 +123,5 @@ FORM alv_event.
   ENDTRY.
 
   CALL METHOD lr_alv->display.
-
-ENDFORM.
-*&---------------------------------------------------------------------*
-*& Form check_f_positive
-*&---------------------------------------------------------------------*
-*& text
-*&---------------------------------------------------------------------*
-*& -->  p1        text
-*& <--  p2        text
-*&---------------------------------------------------------------------*
-FORM check_f_positive .
-
-  IF p_MATNR IS INITIAL AND p_MATNR IS NOT INITIAL.
-    MESSAGE 'Algo deu errado!' TYPE 'E'.
-  ENDIF.
 
 ENDFORM.

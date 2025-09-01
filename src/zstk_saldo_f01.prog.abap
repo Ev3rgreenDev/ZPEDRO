@@ -34,8 +34,12 @@ FORM alv_event USING lv_string TYPE string.
   IF p_MATNR IS INITIAL AND p_LOCID IS INITIAL.
 
     SELECT *
-        FROM zstock
-        INTO TABLE lt_tab_zstock.
+      FROM zstock
+      INTO TABLE lt_tab_zstock.
+
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    ENDIF.
 
   ELSE.
 
@@ -43,6 +47,10 @@ FORM alv_event USING lv_string TYPE string.
       FROM zstock
       INTO TABLE lt_tab_zstock
       WHERE (lv_string).
+
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    ENDIF.
 
   ENDIF.
 
@@ -63,6 +71,7 @@ FORM alv_event USING lv_string TYPE string.
           aggregation = if_salv_c_aggregation=>total.
 
     CATCH cx_salv_msg cx_salv_not_found cx_salv_data_error cx_salv_existing INTO oref.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 
@@ -81,6 +90,7 @@ FORM alv_event USING lv_string TYPE string.
         EXPORTING
           value = if_salv_c_bool_sap=>true.
     CATCH cx_salv_data_error cx_salv_not_found cx_salv_existing.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
   ENDTRY.
 
   CALL METHOD lr_alv->display.

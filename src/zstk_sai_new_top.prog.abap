@@ -12,11 +12,11 @@ DATA: "TABELA ZSTOCK
   ls_est_zmov    TYPE zsmov,
   ls_itab_zmov   TYPE zmov,
 
-  " VARIAVEIS LOCAIS
+  " VARIAVEIS
   lr_alv         TYPE REF TO cl_salv_table,
   lv_data        TYPE dats,
   lv_IDMOV       TYPE ze_guid32,
-  lv_TPMOV       TYPE ze_tpmov,
+  c_TPMOV        TYPE c LENGTH 2 VALUE 'SA',
   lv_HORA        TYPE tims,
   lv_QTY         TYPE ze_QTY3.
 

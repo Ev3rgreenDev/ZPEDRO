@@ -9,13 +9,13 @@
 *& -->  p1        text
 *& <--  p2        text
 *&---------------------------------------------------------------------*
-FORM valida .
+FORM valida.
 
   SELECT SINGLE idres
    FROM zres
    INTO p_IDRES
    WHERE idres = p_IDRES
-   AND status = 'A'.
+   AND status = c_status_a.
 
   IF sy-subrc NE 0.
     MESSAGE 'A reserva requisitada não existe' TYPE 'E'.
@@ -30,11 +30,15 @@ ENDFORM.
 *& -->  p1        text
 *& <--  p2        text
 *&---------------------------------------------------------------------*
-FORM update_zres .
+FORM update_zres.
 
   UPDATE zres
-  SET status = 'C'
+  SET status = c_status_c
   WHERE idres = p_IDRES.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -45,12 +49,16 @@ ENDFORM.
 *& -->  p1        text
 *& <--  p2        text
 *&---------------------------------------------------------------------*
-FORM alv_event .
+FORM alv_event.
 
   SELECT *
   FROM zres
   INTO TABLE lt_tab_zres
   WHERE idres = p_IDRES.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
 
   TRY.
       CALL METHOD cl_salv_table=>factory
@@ -62,6 +70,7 @@ FORM alv_event .
           t_table      = lt_tab_zres.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 

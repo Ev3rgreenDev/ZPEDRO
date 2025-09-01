@@ -27,10 +27,10 @@ PERFORM update_qty_origem CHANGING lv_qty_origem.
 
 PERFORM update_qty_destino CHANGING lv_qty_destino.
 
-PERFORM create_qty_destino USING ls_itab_zstock.
+PERFORM create_qty_destino CHANGING ls_itab_zstock.
 
-PERFORM create_zmov_origem USING ls_itab_zmov CHANGING lv_idmov.
+PERFORM create_zmov_origem CHANGING lv_idmov ls_itab_zmov.
 
-PERFORM create_zmov_destino USING ls_itab_zmov CHANGING lv_idmov.
+PERFORM create_zmov_destino CHANGING lv_idmov ls_itab_zmov.
 
 PERFORM alv_event.

@@ -29,8 +29,8 @@ ENDFORM.
 *&      <-- LV_DATA
 *&      <-- LV_HORA
 *&---------------------------------------------------------------------*
-FORM set_var  CHANGING p_lv_data TYPE dats
-                       p_lv_hora TYPE tims.
+FORM set_var  CHANGING lv_data TYPE dats
+                       lv_hora TYPE tims.
 
   lv_data = sy-datum.
   lv_hora = sy-uzeit.
@@ -43,12 +43,16 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LS_ITAB_ZRES
 *&---------------------------------------------------------------------*
-FORM get_zres  CHANGING p_ls_itab_zres TYPE zres.
+FORM get_zres  CHANGING ls_itab_zres TYPE zres.
 
   SELECT SINGLE *
     FROM zres
     INTO ls_itab_zres
     WHERE idres = p_IDRES.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -66,6 +70,10 @@ FORM get_stock  CHANGING p_lv_qty_stock TYPE ze_qty3.
     WHERE matnr = ls_itab_zres-matnr
     AND locid = ls_itab_zres-locid.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form valida_qty_set_qty
@@ -76,9 +84,9 @@ ENDFORM.
 *&      --> LS_ITAB_ZRES
 *&      <-- LV_QTY_FINAL
 *&---------------------------------------------------------------------*
-FORM valida_qty_set_qty  USING    p_lv_qty_stock TYPE ze_qty3
-                                  p_ls_itab_zres TYPE zres
-                         CHANGING p_lv_qty_final TYPE ze_qty3.
+FORM valida_qty_set_qty  USING    lv_qty_stock TYPE ze_qty3
+                                  ls_itab_zres TYPE zres
+                         CHANGING lv_qty_final TYPE ze_qty3.
 
   IF lv_qty_stock LT ls_itab_zres-qty_res.
     MESSAGE 'Valor da reserva é maior do que valor em estoque.' TYPE 'E'.
@@ -95,18 +103,18 @@ ENDFORM.
 *&      --> LV_QTY_FINAL
 *&      --> LV_DATA
 *&---------------------------------------------------------------------*
-FORM update_zstock  USING    p_lv_qty_final TYPE ze_qty3
-                             p_lv_data TYPE dats.
+FORM update_zstock  USING lv_qty_final TYPE ze_qty3
+                          lv_data      TYPE dats.
 
   UPDATE zstock
-  SET qty = lv_qty_final
-  WHERE matnr = ls_itab_zres-matnr
-  AND locid = ls_itab_zres-locid.
+  SET qty = @lv_qty_final,
+      dt_atualiz = @lv_data
+  WHERE matnr = @ls_itab_zres-matnr
+  AND locid = @ls_itab_zres-locid.
 
-  UPDATE zstock
-  SET dt_atualiz = lv_data
-  WHERE matnr = ls_itab_zres-matnr
-  AND locid = ls_itab_zres-locid.
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -118,17 +126,18 @@ ENDFORM.
 *&      <-- LV_TPMOV
 *&      <-- LS_ITAB_ZMOV
 *&---------------------------------------------------------------------*
-FORM mov  CHANGING p_lv_idmov TYPE ze_guid32
-                   p_lv_tpmov TYPE ze_tpmov
-                   p_ls_itab_zmov TYPE zmov.
+FORM mov  CHANGING lv_idmov TYPE ze_guid32
+                   ls_itab_zmov TYPE zmov.
 
   SELECT MAX( idmov )
     FROM zmov
     INTO lv_idmov.
 
-  lv_idmov = lv_idmov + 1.
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
 
-  lv_tpmov = 'SA'.
+  lv_idmov = lv_idmov + 1.
 
   MOVE lv_idmov             TO ls_itab_zmov-idmov.
   MOVE ls_itab_zres-matnr   TO ls_itab_zmov-matnr.
@@ -139,10 +148,14 @@ FORM mov  CHANGING p_lv_idmov TYPE ze_guid32
   MOVE lv_HORA              TO ls_itab_zmov-hora.
 
   ls_itab_zmov-idmov = |{ ls_itab_zmov-idmov ALPHA = IN }|.
-  ls_itab_zmov-matnr = |{ ls_itab_zmov-matnr ALPHA = IN }|.
+  ls_itab_zmov-matnr = CONV char18( |{ ls_itab_zmov-matnr ALPHA = IN }| ).
   ls_itab_zmov-locid = |{ ls_itab_zmov-locid ALPHA = IN }|.
 
   INSERT zmov FROM ls_itab_zmov.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -156,8 +169,12 @@ ENDFORM.
 FORM update_zres .
 
   UPDATE zres
-  SET status = 'U'
+  SET status = c_status
   WHERE idres = p_IDRES.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -176,6 +193,10 @@ FORM alv_event .
    WHERE matnr = ls_itab_zmov-matnr
    AND locid = ls_itab_zmov-locid.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   TRY.
       CALL METHOD cl_salv_table=>factory
         EXPORTING
@@ -186,6 +207,7 @@ FORM alv_event .
           t_table      = lt_tab_zstock.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 

@@ -12,13 +12,13 @@ DATA: "TABELA ZSTOCK
   ls_est_zres    TYPE zres,
   ls_itab_zres   TYPE zres,
 
-  " VARIAVEIS LOCAIS
+  " VARIAVEIS
   lr_alv         TYPE REF TO cl_salv_table,
   lv_data        TYPE dats,
   lv_IDRES       TYPE ze_guid32,
   lv_TPMOV       TYPE ze_tpmov,
   lv_HORA        TYPE tims,
-  lv_status      TYPE ze_stat_res,
+  c_status      TYPE c LENGTH 1 VALUE 'A',
   lv_qty_res     TYPE ze_qty3.
 
 

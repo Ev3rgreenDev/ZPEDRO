@@ -77,6 +77,10 @@ FORM check_destin CHANGING lv_destin TYPE ze_locid.
       WHERE locid = p_DESTIN
       AND matnr = p_MATNR.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form get_stock
@@ -87,12 +91,15 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 FORM get_stock.
 
-  SELECT *
+  SELECT SINGLE *
     FROM zstock
     INTO ls_itab_zstock
     WHERE locid = p_ORIGEM
     AND matnr = p_MATNR.
-  ENDSELECT.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -102,19 +109,19 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_QTY_ORIGEM
 *&---------------------------------------------------------------------*
-FORM update_qty_origem CHANGING p_lv_qty_origem TYPE ze_qty3.
+FORM update_qty_origem CHANGING lv_qty_origem TYPE ze_qty3.
 
   lv_qty_origem = ls_itab_zstock-qty - p_QTY.
 
   UPDATE zstock
-  SET qty = lv_qty_origem
-  WHERE locid = p_ORIGEM
-  AND matnr = p_MATNR.
+  SET qty = @lv_qty_origem,
+  dt_atualiz = @lv_data
+  WHERE locid = @p_ORIGEM
+  AND matnr = @p_MATNR.
 
-  UPDATE zstock
-  SET dt_atualiz = lv_data
-  WHERE locid = p_ORIGEM
-  AND matnr = p_MATNR.
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -124,21 +131,21 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_QTY_DESTINO
 *&---------------------------------------------------------------------*
-FORM update_qty_destino CHANGING p_lv_qty_destino TYPE ze_qty3.
+FORM update_qty_destino CHANGING lv_qty_destino TYPE ze_qty3.
 
   IF lv_destin IS NOT INITIAL.
 
     lv_qty_destino = ls_itab_zstock-qty + p_QTY.
 
     UPDATE zstock
-    SET qty = lv_qty_destino
-    WHERE locid = p_DESTIN
-    AND matnr = p_MATNR.
+    SET qty = @lv_qty_destino,
+    dt_atualiz = @lv_data
+    WHERE locid = @p_DESTIN
+    AND matnr = @p_MATNR.
 
-    UPDATE zstock
-    SET dt_atualiz = lv_data
-    WHERE locid = p_DESTIN
-    AND matnr = p_MATNR.
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    ENDIF.
 
   ENDIF.
 
@@ -150,7 +157,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      --> LS_ITAB_ZSTOCK
 *&---------------------------------------------------------------------*
-FORM create_qty_destino USING ls_itab_zstock TYPE zstock.
+FORM create_qty_destino CHANGING ls_itab_zstock TYPE zstock.
 
   IF lv_destin IS INITIAL.
 
@@ -159,10 +166,16 @@ FORM create_qty_destino USING ls_itab_zstock TYPE zstock.
     MOVE p_QTY    TO ls_itab_zstock-qty.
     MOVE lv_data  TO ls_itab_zstock-dt_atualiz.
 
-    ls_itab_zstock-matnr = |{ ls_itab_zstock-matnr ALPHA = IN }|.
+    ls_itab_zstock-matnr = CONV char18( |{ ls_itab_zstock-matnr ALPHA = IN }| ).
     ls_itab_zstock-locid = |{ ls_itab_zstock-locid ALPHA = IN }|.
 
     INSERT zstock FROM ls_itab_zstock.
+
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+    ENDIF.
+
+    CLEAR ls_itab_zstock.
 
   ENDIF.
 
@@ -175,32 +188,39 @@ ENDFORM.
 *&      --> LS_ITAB_ZMOV
 *&      <-- LV_IDMOV
 *&---------------------------------------------------------------------*
-FORM create_zmov_origem  USING    p_ls_itab_zmov TYPE zmov
-                         CHANGING p_lv_idmov     TYPE ze_guid32.
+FORM create_zmov_origem CHANGING lv_idmov     TYPE ze_guid32
+                                 ls_itab_zmov TYPE zmov.
 
   SELECT MAX( idmov )
     FROM zmov
     INTO lv_idmov.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   lv_idmov = lv_idmov + 1.
 
-  lv_tpmov = 'TR'.
-
-  MOVE lv_idmov TO ls_itab_zmov-idmov.
-  MOVE p_MATNR  TO ls_itab_zmov-matnr.
-  MOVE p_origem TO ls_itab_zmov-locid.
-  MOVE lv_TPMOV TO ls_itab_zmov-tpmov.
-  MOVE p_QTY    TO ls_itab_zmov-qty.
-  MOVE lv_data  TO ls_itab_zmov-data.
-  MOVE lv_HORA  TO ls_itab_zmov-hora.
-  MOVE p_OBS    TO ls_itab_zmov-obs.
-  MOVE p_DESTIN TO ls_itab_zmov-loc_dest.
+  MOVE lv_idmov   TO ls_itab_zmov-idmov.
+  MOVE p_MATNR    TO ls_itab_zmov-matnr.
+  MOVE p_origem   TO ls_itab_zmov-locid.
+  MOVE c_TPMOV_tr TO ls_itab_zmov-tpmov.
+  MOVE p_QTY      TO ls_itab_zmov-qty.
+  MOVE lv_data    TO ls_itab_zmov-data.
+  MOVE lv_HORA    TO ls_itab_zmov-hora.
+  MOVE p_OBS      TO ls_itab_zmov-obs.
+  MOVE p_DESTIN   TO ls_itab_zmov-loc_dest.
 
   ls_itab_zmov-idmov = |{ ls_itab_zmov-idmov ALPHA = IN }|.
   ls_itab_zmov-matnr = |{ ls_itab_zmov-matnr ALPHA = IN }|.
   ls_itab_zmov-locid = |{ ls_itab_zmov-locid ALPHA = IN }|.
 
   INSERT zmov FROM ls_itab_zmov.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
+
   CLEAR ls_itab_zmov.
 
 ENDFORM.
@@ -212,31 +232,37 @@ ENDFORM.
 *&      --> LS_ITAB_ZMOV
 *&      <-- LV_IDMOV
 *&---------------------------------------------------------------------*
-FORM create_zmov_destino  USING    p_ls_itab_zmov TYPE zmov
-                          CHANGING p_lv_idmov     TYPE ze_guid32.
+FORM create_zmov_destino CHANGING lv_idmov     TYPE ze_guid32
+                                  ls_itab_zmov TYPE zmov.
 
   SELECT MAX( idmov )
         FROM zmov
         INTO lv_idmov.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   lv_idmov = lv_idmov + 1.
 
-  lv_tpmov = 'TD'.
-
-  MOVE lv_idmov TO ls_itab_zmov-idmov.
-  MOVE p_MATNR  TO ls_itab_zmov-matnr.
-  MOVE p_destin TO ls_itab_zmov-locid.
-  MOVE lv_TPMOV TO ls_itab_zmov-tpmov.
-  MOVE p_QTY    TO ls_itab_zmov-qty.
-  MOVE lv_data  TO ls_itab_zmov-data.
-  MOVE lv_HORA  TO ls_itab_zmov-hora.
-  MOVE p_OBS    TO ls_itab_zmov-obs.
+  MOVE lv_idmov   TO ls_itab_zmov-idmov.
+  MOVE p_MATNR    TO ls_itab_zmov-matnr.
+  MOVE p_destin   TO ls_itab_zmov-locid.
+  MOVE c_TPMOV_td TO ls_itab_zmov-tpmov.
+  MOVE p_QTY      TO ls_itab_zmov-qty.
+  MOVE lv_data    TO ls_itab_zmov-data.
+  MOVE lv_HORA    TO ls_itab_zmov-hora.
+  MOVE p_OBS      TO ls_itab_zmov-obs.
 
   ls_itab_zmov-idmov = |{ ls_itab_zmov-idmov ALPHA = IN }|.
-  ls_itab_zmov-matnr = |{ ls_itab_zmov-matnr ALPHA = IN }|.
+  ls_itab_zmov-matnr = CONV char18( |{ ls_itab_zmov-matnr ALPHA = IN }| ).
   ls_itab_zmov-locid = |{ ls_itab_zmov-locid ALPHA = IN }|.
 
   INSERT zmov FROM ls_itab_zmov.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
 
   CLEAR ls_itab_zmov.
 
@@ -259,6 +285,10 @@ FORM alv_event .
     OR locid = p_DESTIN
     AND matnr = p_MATNR.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   TRY.
       CALL METHOD cl_salv_table=>factory
         EXPORTING
@@ -269,6 +299,7 @@ FORM alv_event .
           t_table      = lt_tab_zstock.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 

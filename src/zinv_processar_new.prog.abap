@@ -28,6 +28,6 @@ START-OF-SELECTION.
 
   PERFORM update_zinv.
 
-  PERFORM mov CHANGING lv_idmov lv_tpmov ls_itab_zmov.
+  PERFORM mov CHANGING lv_idmov ls_itab_zmov.
 
   PERFORM alv_event.

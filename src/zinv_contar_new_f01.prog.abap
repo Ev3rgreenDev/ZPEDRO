@@ -16,7 +16,7 @@ FORM valida CHANGING p_idinv TYPE ze_guid32
   FROM zinv
   INTO p_IDINV
   WHERE idinv = p_IDINV
-  AND status = 'A'.
+  AND status = c_status.
 
   IF sy-subrc NE 0.
     MESSAGE 'Item inválido.' TYPE 'E'.
@@ -38,21 +38,19 @@ ENDFORM.
 *&      --> P_QTY
 *&      --> LV_DATA
 *&---------------------------------------------------------------------*
-FORM update_zinv  USING    p_p_qty TYPE ze_qty3
-                           p_lv_data TYPE dats.
+FORM update_zinv  USING p_qty   TYPE ze_qty3
+                        lv_data TYPE dats.
 
 
   UPDATE zinv
-  SET qty_contada = p_QTY
-  WHERE idinv = p_IDINV.
+  SET qty_contada = @p_QTY,
+  status = @c_status,
+  data_cont = @lv_data
+  WHERE idinv = @p_IDINV.
 
-  UPDATE zinv
-  SET status = 'F'
-  WHERE idinv = p_IDINV.
-
-  UPDATE zinv
-  SET data_cont = lv_data
-  WHERE idinv = p_IDINV.
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -70,6 +68,10 @@ FORM alv_event .
   INTO TABLE lt_tab_zinv
   WHERE idinv = p_IDINV.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   TRY.
       CALL METHOD cl_salv_table=>factory
         EXPORTING
@@ -80,6 +82,7 @@ FORM alv_event .
           t_table      = lt_tab_zinv.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 

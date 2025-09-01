@@ -52,6 +52,8 @@ FORM valida_qty .
     IF p_QTY + lv_qty_res GT ls_itab_zres_c-qty.
       MESSAGE 'Valor a ser reservado é maior do que o valor em estoque.' TYPE 'E'.
     ENDIF.
+  ELSE.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
   ENDIF.
 
 
@@ -67,7 +69,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_DATA
 *&---------------------------------------------------------------------*
-FORM set_data  CHANGING p_lv_data TYPE dats.
+FORM set_data  CHANGING lv_data TYPE dats.
 
   lv_data = sy-datum.
 
@@ -81,29 +83,35 @@ ENDFORM.
 *&      <-- LV_STATUS
 *&      <-- LS_ITAB_ZRES
 *&---------------------------------------------------------------------*
-FORM mov  CHANGING p_lv_idres TYPE ze_guid32
-                   p_lv_status TYPE ze_stat_res
-                   p_ls_itab_zres TYPE zres.
+FORM mov CHANGING lv_idres     TYPE ze_guid32
+                  ls_itab_zres TYPE zres.
 
   SELECT MAX( idres )
     FROM zres
     INTO lv_IDRES.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   lv_IDRES = lv_IDRES + 1.
-  lv_status = 'A'.
 
   MOVE lv_IDRES  TO ls_itab_zres-idres.
   MOVE p_MATNR   TO ls_itab_zres-matnr.
   MOVE p_LOCID   TO ls_itab_zres-locid.
   MOVE p_QTY     TO ls_itab_zres-qty_res.
   MOVE lv_data   TO ls_itab_zres-data.
-  MOVE lv_status TO ls_itab_zres-status.
+  MOVE c_status  TO ls_itab_zres-status.
 
   ls_itab_zres-idres = |{ ls_itab_zres-idres ALPHA = IN }|.
-  ls_itab_zres-matnr = |{ ls_itab_zres-matnr ALPHA = IN }|.
+  ls_itab_zres-matnr = CONV char18( |{ ls_itab_zres-matnr ALPHA = IN }| ).
   ls_itab_zres-locid = |{ ls_itab_zres-locid ALPHA = IN }|.
 
   INSERT zres FROM ls_itab_zres.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
 
 
 ENDFORM.
@@ -122,6 +130,10 @@ FORM alv_event .
   INTO TABLE lt_tab_zres
   WHERE idres = ls_itab_zres-idres.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   TRY.
       CALL METHOD cl_salv_table=>factory
         EXPORTING
@@ -132,6 +144,7 @@ FORM alv_event .
           t_table      = lt_tab_zres.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 

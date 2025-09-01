@@ -14,7 +14,7 @@ START-OF-SELECTION.
 
 PERFORM check_stock CHANGING ls_itab_zstock.
 
-PERFORM update_stock USING ls_itab_zstock p_QTY changing lv_qty.
+PERFORM update_stock USING p_QTY changing lv_qty ls_itab_zstock.
 
 PERFORM create_stock USING lv_matnr CHANGING ls_itab_zstock.
 

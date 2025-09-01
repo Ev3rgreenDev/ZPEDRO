@@ -19,7 +19,7 @@ DATA: "TABELA ZSTOCK
   lo_sort        TYPE REF TO cl_salv_sorts,
   lo_sort_column TYPE REF TO cl_salv_sort,
 
-  " VARIAVEIS LOCAIS
+  " VARIAVEIS
   lv_data        TYPE dats,
   lv_IDMOV       TYPE ze_guid32,
   lv_TPMOV       TYPE ze_tpmov,

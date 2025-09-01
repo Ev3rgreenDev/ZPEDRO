@@ -18,8 +18,6 @@ START-OF-SELECTION.
 
   PERFORM check_matnr CHANGING lv_MATNR.
 
-  PERFORM check_f_positive.
-
   PERFORM update_zmat USING lv_matnr.
 
   PERFORM create_zmat USING lv_matnr.

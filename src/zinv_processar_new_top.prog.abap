@@ -16,16 +16,17 @@ DATA: "TABELA ZSTOCK
   ls_est_zmov    TYPE zsmov,
   ls_itab_zmov   TYPE zmov,
 
-  " VARIAVEIS LOCAIS
+  " VARIAVEIS
   lr_alv         TYPE REF TO cl_salv_table,
   lv_data        TYPE dats,
   lv_dif         TYPE ze_qty3,
   lv_qty_stock   TYPE ze_qty3,
   lv_qty_final   TYPE ze_qty3,
   lv_IDMOV       TYPE ze_guid32,
-  lv_TPMOV       TYPE ze_tpmov,
+  c_TPMOV       TYPE c LENGTH 2 VALUE 'AJ',
   lv_HORA        TYPE tims,
-  lv_obs         TYPE ze_obs.
+  lv_obs         TYPE ze_obs,
+  c_status       TYPE c LENGTH 1 VALUE 'P'.
 
 
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.

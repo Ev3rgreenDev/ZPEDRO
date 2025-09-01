@@ -22,6 +22,6 @@ AT SELECTION-SCREEN.
 
 START-OF-SELECTION.
 
-  PERFORM mov CHANGING lv_idres lv_status ls_itab_zres.
+  PERFORM mov CHANGING lv_idres ls_itab_zres.
 
   PERFORM alv_event.

@@ -11,7 +11,7 @@ DATA: " TABELA ZMAT
       " ALV
       lr_alv       TYPE REF TO cl_salv_table,
 
-      " VARIAVEL LOCAL
+      " VARIAVEIS
       lv_matnr     TYPE ze_matnr.
 
 

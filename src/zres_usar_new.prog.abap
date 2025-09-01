@@ -27,7 +27,7 @@ AT SELECTION-SCREEN.
 
   PERFORM update_zstock USING lv_qty_final lv_data.
 
-  PERFORM mov CHANGING lv_idmov lv_tpmov ls_itab_zmov.
+  PERFORM mov CHANGING lv_idmov ls_itab_zmov.
 
   PERFORM update_zres.
 

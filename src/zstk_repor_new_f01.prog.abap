@@ -8,7 +8,7 @@
 *&---------------------------------------------------------------------*
 *&      <-- LV_CAMPOS
 *&---------------------------------------------------------------------*
-FORM set_campos  CHANGING p_lv_campos TYPE string.
+FORM set_campos  CHANGING lv_campos TYPE string.
 
   lv_campos = 'QTY LE p_QTY_M'.
 
@@ -43,6 +43,10 @@ FORM get_zstock.
   INTO TABLE lt_tab_zstock
   WHERE (lv_campos).
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form set_zstock
@@ -52,8 +56,8 @@ ENDFORM.
 *&      <-- LV_QTY_SUG
 *&      <-- LS_ITAB_ZSTOCK_AUX
 *&---------------------------------------------------------------------*
-FORM set_zstock  CHANGING p_lv_qty_sug TYPE ze_qty3
-                          p_ls_itab_zstock_aux TYPE zstock_aux.
+FORM set_zstock  CHANGING lv_qty_sug         TYPE ze_qty3
+                          ls_itab_zstock_aux TYPE zstock_aux.
 
   LOOP AT lt_tab_zstock INTO ls_itab_zstock_aux.
 
@@ -86,6 +90,7 @@ FORM alv_event .
           t_table      = lt_tab_zstock_aux.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 

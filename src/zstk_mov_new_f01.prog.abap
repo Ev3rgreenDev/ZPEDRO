@@ -8,7 +8,7 @@
 *&---------------------------------------------------------------------*
 *&      <-- P_DATA_F
 *&---------------------------------------------------------------------*
-FORM valida  CHANGING p_p_data_f.
+FORM valida CHANGING p_data_f.
 
   IF p_MATNR IS NOT INITIAL.
 
@@ -54,7 +54,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_CAMPOS
 *&---------------------------------------------------------------------*
-FORM get_selection  CHANGING p_lv_campos.
+FORM get_selection  CHANGING lv_campos.
 
   IF p_MATNR IS NOT INITIAL.
 
@@ -101,7 +101,7 @@ ENDFORM.
 *&      --> LV_CAMPOS
 *&      <-- LT_TAB_ZMOV
 *&---------------------------------------------------------------------*
-FORM get_zmov  USING    p_lv_campos TYPE string.
+FORM get_zmov  USING lv_campos TYPE string.
 
   IF p_MATNR IS NOT INITIAL
      OR p_LOCID IS NOT INITIAL
@@ -113,11 +113,19 @@ FORM get_zmov  USING    p_lv_campos TYPE string.
       INTO TABLE lt_tab_zmov
       WHERE (lv_campos).
 
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    ENDIF.
+
   ELSE.
 
     SELECT *
       FROM zmov
       INTO TABLE lt_tab_zmov.
+
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    ENDIF.
 
   ENDIF.
 
@@ -129,7 +137,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LS_ITAB_ZMOV
 *&---------------------------------------------------------------------*
-FORM tpmov_processing  CHANGING p_ls_itab_zmov TYPE zmov.
+FORM tpmov_processing  CHANGING ls_itab_zmov TYPE zmov.
 
   IF p_TPMOV IS INITIAL.
 
@@ -138,6 +146,9 @@ FORM tpmov_processing  CHANGING p_ls_itab_zmov TYPE zmov.
       ls_itab_zmov-qty = ls_itab_zmov-qty * -1.
 
       MODIFY TABLE lt_tab_zmov FROM ls_itab_zmov TRANSPORTING qty.
+      IF sy-subrc NE 0.
+        MESSAGE 'Erro ao fazer modify!' TYPE 'E'.
+      ENDIF.
 
     ENDLOOP.
   ENDIF.
@@ -170,6 +181,7 @@ FORM alv_event .
           aggregation = if_salv_c_aggregation=>total.
 
     CATCH cx_salv_msg cx_salv_not_found cx_salv_data_error cx_salv_existing INTO oref.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
   ENDTRY.
 
   IF p_TPMOV IS INITIAL.
@@ -189,6 +201,7 @@ FORM alv_event .
           EXPORTING
             value = if_salv_c_bool_sap=>true.
       CATCH cx_salv_data_error cx_salv_not_found cx_salv_existing.
+        MESSAGE 'Erro ao fazer try!' TYPE 'E'.
     ENDTRY.
 
   ENDIF.

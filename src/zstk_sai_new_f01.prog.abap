@@ -14,7 +14,7 @@ FORM valida_matnr USING p_p_matnr TYPE ze_matnr.
     FROM zstock
     INTO p_p_matnr
     WHERE matnr = p_MATNR
-    and locid = p_LOCID.
+    AND locid = p_LOCID.
 
   IF sy-subrc NE 0.
     MESSAGE 'Cadastro de estoque não existe!' TYPE 'E'.
@@ -30,12 +30,11 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 FORM check_stock  CHANGING ls_itab_zstock TYPE zstock.
 
-  SELECT *
+  SELECT SINGLE *
    FROM zstock
    INTO ls_itab_zstock
    WHERE matnr = p_MATNR
    AND locid = p_LOCID.
-  ENDSELECT.
 
   IF ls_itab_zstock-qty LT p_QTY.
     MESSAGE 'Quantidade em estoque é menor do que a quantidade desejada para saída.' TYPE 'E'.
@@ -58,6 +57,10 @@ FORM update_stock  CHANGING lv_qty TYPE ze_qty3.
   WHERE matnr = p_MATNR
   AND locid = p_LOCID.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+  ENDIF.
+
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form alv_event
@@ -75,6 +78,10 @@ FORM alv_event .
   WHERE matnr = p_MATNR
   AND locid = p_LOCID.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
+
   TRY.
       CALL METHOD cl_salv_table=>factory
         EXPORTING
@@ -85,6 +92,7 @@ FORM alv_event .
           t_table      = lt_tab_zstock.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 
@@ -105,15 +113,18 @@ FORM create_zmov  CHANGING p_lv_idmov TYPE ze_guid32 p_ls_itab_zmov TYPE zmov.
   FROM zmov
   INTO lv_idmov.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   lv_idmov = lv_idmov + 1.
-  lv_tpmov = 'SA'.
   lv_data = sy-datum.
   lv_hora = sy-uzeit.
 
   MOVE lv_idmov TO ls_itab_zmov-idmov.
   MOVE p_MATNR  TO ls_itab_zmov-matnr.
   MOVE p_LOCID  TO ls_itab_zmov-locid.
-  MOVE lv_TPMOV TO ls_itab_zmov-tpmov.
+  MOVE c_TPMOV TO ls_itab_zmov-tpmov.
   MOVE p_QTY    TO ls_itab_zmov-qty.
   MOVE lv_data  TO ls_itab_zmov-data.
   MOVE lv_HORA  TO ls_itab_zmov-hora.
@@ -124,5 +135,9 @@ FORM create_zmov  CHANGING p_lv_idmov TYPE ze_guid32 p_ls_itab_zmov TYPE zmov.
   ls_itab_zmov-locid = |{ ls_itab_zmov-locid ALPHA = IN }|.
 
   INSERT zmov FROM ls_itab_zmov.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.

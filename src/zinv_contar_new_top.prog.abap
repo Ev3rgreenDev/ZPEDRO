@@ -11,9 +11,10 @@ DATA: "TABELA ZSTOCK
   lt_tab_ZINV    TYPE TABLE OF zinv,
   ls_itab_ZINV   TYPE zinv,
 
-  " VARIAVEIS LOCAIS
+  " VARIAVEIS
   lr_alv         TYPE REF TO cl_salv_table,
-  lv_data        TYPE dats.
+  lv_data        TYPE dats,
+  c_status      TYPE C LENGTH 1 VALUE 'A'.
 
 
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.

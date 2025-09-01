@@ -8,11 +8,11 @@
 *&---------------------------------------------------------------------*
 *&      --> P_MATNR
 *&---------------------------------------------------------------------*
-FORM valida  USING    p_p_matnr.
+FORM valida  USING p_p_matnr.
 
   SELECT SINGLE matnr
     FROM zstock
-    INTO p_MATNR
+    INTO p_p_MATNR
     WHERE matnr = p_MATNR
     AND locid = p_LOCID.
 
@@ -30,13 +30,17 @@ ENDFORM.
 *&      <-- LV_STATUS
 *&      <-- LV_DATA
 *&---------------------------------------------------------------------*
-FORM create_zinv  CHANGING p_lv_idinv TYPE ze_guid32
-                           p_lv_status TYPE ze_stat_inv
-                           p_lv_data TYPE dats.
+FORM create_zinv  CHANGING lv_idinv TYPE ze_guid32
+                           lv_status TYPE ze_stat_inv
+                           lv_data TYPE dats.
 
   SELECT MAX( idinv )
       FROM zinv
       INTO lv_idinv.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
 
   lv_idinv  = lv_idinv + 1.
   lv_status = 'A'.
@@ -55,6 +59,10 @@ FORM create_zinv  CHANGING p_lv_idinv TYPE ze_guid32
 
   INSERT zinv FROM ls_itab_zinv.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
+
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form alv_event
@@ -64,13 +72,17 @@ ENDFORM.
 *& -->  p1        text
 *& <--  p2        text
 *&---------------------------------------------------------------------*
-FORM alv_event .
+FORM alv_event.
 
   SELECT *
     FROM zinv
     INTO TABLE lt_tab_zinv
     WHERE matnr = p_MATNR
     AND locid = p_LOCID.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
 
   TRY.
       CALL METHOD cl_salv_table=>factory
@@ -82,6 +94,7 @@ FORM alv_event .
           t_table      = lt_tab_zinv.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 

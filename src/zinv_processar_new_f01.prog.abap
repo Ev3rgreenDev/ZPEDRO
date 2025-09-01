@@ -32,12 +32,16 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LS_ITAB_ZINV
 *&---------------------------------------------------------------------*
-FORM get_zinv  CHANGING p_ls_itab_zinv.
+FORM get_zinv  CHANGING ls_itab_zinv.
 
   SELECT SINGLE *
   FROM zinv
   INTO ls_itab_zinv
   WHERE idinv = p_IDINV.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -47,8 +51,8 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_QTY_STOCK
 *&---------------------------------------------------------------------*
-FORM get_stock  CHANGING p_lv_qty_stock TYPE ze_qty3
-                         lv_dif TYPE ze_qty3.
+FORM get_stock  CHANGING lv_qty_stock TYPE ze_qty3
+                         lv_dif         TYPE ze_qty3.
 
   SELECT SINGLE qty
    FROM zstock
@@ -70,7 +74,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_QTY_FINAL
 *&---------------------------------------------------------------------*
-FORM update_zstock_add  CHANGING p_lv_qty_final TYPE ze_qty3.
+FORM update_zstock_add  CHANGING lv_qty_final TYPE ze_qty3.
 
   IF lv_dif GT 0.
 
@@ -80,6 +84,10 @@ FORM update_zstock_add  CHANGING p_lv_qty_final TYPE ze_qty3.
     SET qty = lv_qty_final
     WHERE matnr = ls_itab_zinv-matnr
     AND locid = ls_itab_zinv-locid.
+
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    ENDIF.
 
   ENDIF.
 
@@ -91,7 +99,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_QTY_FINAL
 *&---------------------------------------------------------------------*
-FORM update_zstock_sub  CHANGING p_lv_qty_final TYPE ze_qty3.
+FORM update_zstock_sub  CHANGING lv_qty_final TYPE ze_qty3.
 
   IF lv_dif LT 0.
 
@@ -105,6 +113,10 @@ FORM update_zstock_sub  CHANGING p_lv_qty_final TYPE ze_qty3.
     SET qty = lv_qty_final
     WHERE matnr = ls_itab_zinv-matnr
     AND locid = ls_itab_zinv-locid.
+
+    IF sy-subrc NE 0.
+      MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    ENDIF.
 
   ENDIF.
 
@@ -120,8 +132,12 @@ ENDFORM.
 FORM update_zinv .
 
   UPDATE zinv
-  SET status = 'p'
+  SET status = c_status
   WHERE idinv = p_IDINV.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -133,21 +149,23 @@ ENDFORM.
 *&      <-- LV_TPMOV
 *&      <-- LS_ITAB_ZMOV
 *&---------------------------------------------------------------------*
-FORM mov  CHANGING p_lv_idmov TYPE ze_guid32
-                   p_lv_tpmov TYPE ze_tpmov
-                   p_ls_itab_zmov TYPE zmov.
+FORM mov  CHANGING lv_idmov     TYPE ze_guid32
+                   ls_itab_zmov TYPE zmov.
 
   SELECT MAX( idmov )
     FROM zmov
     INTO lv_idmov.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   lv_idmov = lv_idmov + 1.
-  lv_tpmov = 'AJ'.
 
   MOVE lv_idmov            TO ls_itab_zmov-idmov.
   MOVE ls_itab_zinv-matnr  TO ls_itab_zmov-matnr.
   MOVE ls_itab_zinv-locid  TO ls_itab_zmov-locid.
-  MOVE lv_TPMOV            TO ls_itab_zmov-tpmov.
+  MOVE c_TPMOV             TO ls_itab_zmov-tpmov.
   MOVE lv_dif              TO ls_itab_zmov-qty.
   MOVE lv_data             TO ls_itab_zmov-data.
   MOVE lv_HORA             TO ls_itab_zmov-hora.
@@ -158,6 +176,10 @@ FORM mov  CHANGING p_lv_idmov TYPE ze_guid32
   ls_itab_zmov-locid = |{ ls_itab_zmov-locid ALPHA = IN }|.
 
   INSERT zmov FROM ls_itab_zmov.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -176,6 +198,10 @@ FORM alv_event .
     WHERE matnr = ls_itab_zinv-matnr
     AND locid = ls_itab_zinv-locid.
 
+  IF sy-subrc NE 0.
+    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+  ENDIF.
+
   TRY.
       CALL METHOD cl_salv_table=>factory
         EXPORTING
@@ -186,6 +212,7 @@ FORM alv_event .
           t_table      = lt_tab_zstock.
 
     CATCH cx_salv_msg.
+      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
   ENDTRY.
 
   CALL METHOD lr_alv->display.
