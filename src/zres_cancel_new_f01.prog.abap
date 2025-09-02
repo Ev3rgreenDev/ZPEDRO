@@ -1,0 +1,81 @@
+*&---------------------------------------------------------------------*
+*& Include          ZRES_CANCEL_NEW_F01
+*&---------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*& Form valida
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM valida.
+
+  SELECT SINGLE idres
+   FROM zres
+   INTO p_IDRES
+   WHERE idres = p_IDRES
+   AND status = gc_status_a.
+
+  IF sy-subrc NE 0.
+    MESSAGE 'A reserva requisitada não existe' TYPE 'E'.
+  ENDIF.
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*& Form update_zres
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM update_zres.
+
+  UPDATE zres
+  SET status = gc_status_c
+  WHERE idres = p_IDRES.
+
+  IF sy-subrc NE 0.
+    MESSAGE e003(zpedro)
+      WITH 'ZRES'.
+  ENDIF.
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*& Form alv_event
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM alv_event.
+
+  SELECT *
+  FROM zres
+  INTO TABLE gt_tab_zres
+  WHERE idres = p_IDRES.
+
+  IF sy-subrc NE 0.
+    MESSAGE e002(zpedro)
+      WITH 'ZRES'.
+  ENDIF.
+
+  TRY.
+      CALL METHOD cl_salv_table=>factory
+        EXPORTING
+          list_display = if_salv_c_bool_sap=>false
+        IMPORTING
+          r_salv_table = gr_alv
+        CHANGING
+          t_table      = gt_tab_zres.
+
+    CATCH cx_salv_msg.
+      MESSAGE e001(zpedro).
+
+  ENDTRY.
+
+  CALL METHOD gr_alv->display.
+
+ENDFORM.
