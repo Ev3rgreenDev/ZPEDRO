@@ -51,7 +51,8 @@ FORM get_zres  CHANGING p_gs_itab_zres TYPE zres.
     WHERE idres = p_IDRES.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      WITH 'ZRES'.
   ENDIF.
 
 ENDFORM.
@@ -71,7 +72,8 @@ FORM get_stock  CHANGING p_gv_qty_stock TYPE ze_qty3.
     AND locid = gs_itab_zres-locid.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      WITH 'ZSTOCK'.
   ENDIF.
 
 ENDFORM.
@@ -113,7 +115,8 @@ FORM update_zstock  USING p_gv_qty_final TYPE ze_qty3
   AND locid = @gs_itab_zres-locid.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    MESSAGE e003(zpedro)
+      with 'ZSTOCK'.
   ENDIF.
 
 ENDFORM.
@@ -134,7 +137,8 @@ FORM mov  CHANGING p_gv_idmov TYPE ze_guid32
     INTO p_gv_idmov.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      with 'IDMOV MAX'.
   ENDIF.
 
   p_gv_idmov = p_gv_idmov + 1.
@@ -153,7 +157,8 @@ FORM mov  CHANGING p_gv_idmov TYPE ze_guid32
   INSERT zmov FROM p_gs_itab_zmov.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+    MESSAGE e000(zpedro)
+      with 'ZMOV'..
   ENDIF.
 
 ENDFORM.
@@ -172,7 +177,8 @@ FORM update_zres .
   WHERE idres = p_IDRES.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    MESSAGE e003(zpedro)
+      with 'ZRES'.
   ENDIF.
 
 ENDFORM.
@@ -193,7 +199,8 @@ FORM alv_event .
    AND locid = gs_itab_zmov-locid.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e000(zpedro)
+      with 'ZSTOCK'.
   ENDIF.
 
   TRY.
@@ -206,7 +213,7 @@ FORM alv_event .
           t_table      = gt_tab_zstock.
 
     CATCH cx_salv_msg.
-      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
 
   ENDTRY.
 

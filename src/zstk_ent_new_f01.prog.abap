@@ -41,6 +41,11 @@ FORM update_stock USING    p_qty          TYPE ze_qty3
     WHERE matnr = @p_MATNR
     AND locid = @p_LOCID.
 
+    IF sy-subrc NE 0.
+      MESSAGE e003(zpedro)
+      WITH 'ZSTOCK'.
+    ENDIF.
+
   ENDIF.
 
 ENDFORM.
@@ -61,36 +66,42 @@ FORM create_zmov USING    p_qty          TYPE ze_qty3
      FROM zmov
      INTO i_gv_idmov.
 
-    IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
-    ENDIF.
+  IF sy-subrc NE 0.
+    MESSAGE e002(zpedro)
+    WITH 'IDMOV MAX'.
+  ENDIF.
 
-    gv_hora = sy-uzeit.
-    gv_data = sy-datum.
-    i_gv_idmov = gv_idmov + 1.
+  gv_hora = sy-uzeit.
+  gv_data = sy-datum.
+  i_gv_idmov = gv_idmov + 1.
 
-    MOVE gv_idmov TO p_gs_itab_zmov-idmov.
-    MOVE p_MATNR  TO p_gs_itab_zmov-matnr.
-    MOVE p_LOCID  TO p_gs_itab_zmov-locid.
-    MOVE gc_TPMOV TO p_gs_itab_zmov-tpmov.
-    MOVE gv_data  TO p_gs_itab_zmov-data.
-    MOVE gv_HORA  TO p_gs_itab_zmov-hora.
-    MOVE p_OBS    TO p_gs_itab_zmov-obs.
+  MOVE gv_idmov TO p_gs_itab_zmov-idmov.
+  MOVE p_MATNR  TO p_gs_itab_zmov-matnr.
+  MOVE p_LOCID  TO p_gs_itab_zmov-locid.
+  MOVE gc_TPMOV TO p_gs_itab_zmov-tpmov.
+  MOVE gv_data  TO p_gs_itab_zmov-data.
+  MOVE gv_HORA  TO p_gs_itab_zmov-hora.
+  MOVE p_OBS    TO p_gs_itab_zmov-obs.
 
-    IF gs_itab_zstock IS NOT INITIAL.
+  IF gs_itab_zstock IS NOT INITIAL.
 
-      MOVE p_gv_qty TO p_gs_itab_zmov-qty.
+    MOVE p_gv_qty TO p_gs_itab_zmov-qty.
 
-    ELSE.
+  ELSE.
 
-      MOVE p_qty TO p_gs_itab_zmov-qty.
+    MOVE p_qty TO p_gs_itab_zmov-qty.
 
-    ENDIF.
+  ENDIF.
 
-    p_gs_itab_zmov-idmov = |{ p_gs_itab_zmov-idmov ALPHA = IN }|.
-    p_gs_itab_zmov-locid = |{ p_gs_itab_zmov-locid ALPHA = IN }|.
+  p_gs_itab_zmov-idmov = |{ p_gs_itab_zmov-idmov ALPHA = IN }|.
+  p_gs_itab_zmov-locid = |{ p_gs_itab_zmov-locid ALPHA = IN }|.
 
-    INSERT zmov FROM p_gs_itab_zmov.
+  INSERT zmov FROM p_gs_itab_zmov.
+
+  IF sy-subrc NE 0.
+    MESSAGE e000(zpedro)
+    WITH 'ZMOV'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -118,7 +129,8 @@ FORM create_stock  USING    p_gv_matnr       TYPE ze_matnr
     INSERT zstock FROM p_gs_itab_zstock.
 
     IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+      MESSAGE e000(zpedro)
+      WITH 'ZSTOCK'.
     ENDIF.
 
   ENDIF.
@@ -140,24 +152,25 @@ FORM alv_event.
        WHERE matnr = gs_itab_zstock-matnr
        AND locid = gs_itab_zstock-locid.
 
-    IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
-    ENDIF.
+  IF sy-subrc NE 0.
+    MESSAGE e002(zpedro)
+      WITH 'ZSTOCK'.
+  ENDIF.
 
-    TRY.
-        CALL METHOD cl_salv_table=>factory
-          EXPORTING
-            list_display = if_salv_c_bool_sap=>false
-          IMPORTING
-            r_salv_table = gr_alv
-          CHANGING
-            t_table      = gt_tab_zstock.
+  TRY.
+      CALL METHOD cl_salv_table=>factory
+        EXPORTING
+          list_display = if_salv_c_bool_sap=>false
+        IMPORTING
+          r_salv_table = gr_alv
+        CHANGING
+          t_table      = gt_tab_zstock.
 
-      CATCH cx_salv_msg.
-        MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+    CATCH cx_salv_msg.
+      MESSAGE e001(zpedro).
 
-    ENDTRY.
+  ENDTRY.
 
-    CALL METHOD gr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.

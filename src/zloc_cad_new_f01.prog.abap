@@ -33,7 +33,8 @@ FORM update_zloc  USING p_gv_locid TYPE ze_locid.
      WHERE locid = @p_LOCID.
 
     IF sy-subrc NE 0.
-     MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+      MESSAGE e003(zpedro)
+       WITH 'ZLOC'.
     ENDIF.
 
   ENDIF.
@@ -59,7 +60,8 @@ FORM create_zloc  USING p_gv_locid TYPE ze_locid.
     INSERT zloc FROM gs_itab_zloc.
 
     IF sy-subrc NE 0.
-     MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+      MESSAGE e000(zpedro)
+       WITH 'ZLOC'.
     ENDIF.
 
   ENDIF.
@@ -80,9 +82,10 @@ FORM alv_event .
   INTO TABLE gt_tab_ZLOC
   WHERE locid = p_LOCID.
 
-    IF sy-subrc NE 0.
-     MESSAGE 'Erro ao fazer select!' TYPE 'E'.
-    ENDIF.
+  IF sy-subrc NE 0.
+    MESSAGE e002(zpedro)
+     WITH 'ZLOC'.
+  ENDIF.
 
   TRY.
       CALL METHOD cl_salv_table=>factory
@@ -94,7 +97,7 @@ FORM alv_event .
           t_table      = gt_tab_zloc.
 
     CATCH cx_salv_msg.
-     MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
 
   ENDTRY.
 

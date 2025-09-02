@@ -114,7 +114,8 @@ FORM get_zmov USING i_gv_campos TYPE string.
       WHERE (i_gv_campos).
 
     IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+      MESSAGE e002(zpedro)
+      with 'ZMOV'.
     ENDIF.
 
   ELSE.
@@ -124,7 +125,8 @@ FORM get_zmov USING i_gv_campos TYPE string.
       INTO TABLE gt_tab_zmov.
 
     IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+      MESSAGE e002(zpedro)
+      with 'ZMOV'.
     ENDIF.
 
   ENDIF.
@@ -147,7 +149,7 @@ FORM tpmov_processing  CHANGING p_gs_itab_zmov TYPE zmov.
 
       MODIFY TABLE gt_tab_zmov FROM p_gs_itab_zmov TRANSPORTING qty.
       IF sy-subrc NE 0.
-        MESSAGE 'Erro ao fazer modify!' TYPE 'E'.
+        MESSAGE 'Houve um erro ao modificar a tabela interna de ZMOV!' TYPE 'E'.
       ENDIF.
 
     ENDLOOP.
@@ -181,7 +183,7 @@ FORM alv_event .
           aggregation = if_salv_c_aggregation=>total.
 
     CATCH cx_salv_msg cx_salv_not_found cx_salv_data_error cx_salv_existing INTO oref.
-      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
   ENDTRY.
 
   IF p_TPMOV IS INITIAL.
@@ -201,7 +203,7 @@ FORM alv_event .
           EXPORTING
             value = if_salv_c_bool_sap=>true.
       CATCH cx_salv_data_error cx_salv_not_found cx_salv_existing.
-        MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+        MESSAGE e001(zpedro).
     ENDTRY.
 
   ENDIF.

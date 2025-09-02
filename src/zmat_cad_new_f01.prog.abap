@@ -34,9 +34,10 @@ FORM check_matnr CHANGING p_gv_matnr TYPE ze_matnr.
     INTO p_gv_matnr
     WHERE matnr = p_MATNR.
 
-    IF sy-subrc NE 0.
-     MESSAGE 'Erro ao fazer o select!' TYPE 'E'.
-    ENDIF.
+  IF sy-subrc NE 0.
+    MESSAGE e002(zpedro)
+     WITH 'ZMAT'.
+  ENDIF.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -58,7 +59,8 @@ FORM update_zmat USING p_gv_matnr TYPE ze_matnr.
       WHERE matnr = @p_MATNR.
 
     IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+      MESSAGE e003(zpedro)
+      WITH 'ZMAT'.
     ENDIF.
 
   ENDIF.
@@ -83,7 +85,8 @@ FORM create_zmat USING p_gv_matnr TYPE ze_matnr.
     INSERT zmat FROM gs_itab_zmat.
 
     IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+      MESSAGE e000(zpedro)
+      WITH 'ZMAT'.
     ENDIF.
 
   ENDIF.
@@ -104,7 +107,8 @@ FORM alv_event.
       WHERE matnr = gs_itab_zmat-matnr.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      WITH 'ZMAT'.
   ENDIF.
 
   TRY.
@@ -117,7 +121,7 @@ FORM alv_event.
           t_table      = gt_tab_zmat.
 
     CATCH cx_salv_msg.
-      MESSAGE 'O ALV teve problemas na geração.' TYPE 'E'.
+      MESSAGE e001(zpedro).
 
   ENDTRY.
 

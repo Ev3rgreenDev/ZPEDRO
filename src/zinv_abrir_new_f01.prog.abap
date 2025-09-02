@@ -38,7 +38,8 @@ FORM create_zinv  CHANGING i_gv_idinv  TYPE ze_guid32
       INTO i_gv_idinv.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      with 'IDMOV MAX'.
   ENDIF.
 
   i_gv_idinv  = i_gv_idinv + 1.
@@ -58,7 +59,8 @@ FORM create_zinv  CHANGING i_gv_idinv  TYPE ze_guid32
   INSERT zinv FROM gs_itab_zinv.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+    MESSAGE e000(zpedro)
+      with 'ZINV'..
   ENDIF.
 
 ENDFORM.
@@ -79,7 +81,8 @@ FORM alv_event.
     AND locid = p_LOCID.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      with 'ZINV'.
   ENDIF.
 
   TRY.
@@ -92,7 +95,7 @@ FORM alv_event.
           t_table      = gt_tab_zinv.
 
     CATCH cx_salv_msg.
-      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
 
   ENDTRY.
 

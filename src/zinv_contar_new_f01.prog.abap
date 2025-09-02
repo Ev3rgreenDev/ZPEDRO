@@ -49,7 +49,8 @@ FORM update_zinv  USING i_p_qty   TYPE ze_qty3
   WHERE idinv = @p_IDINV.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    MESSAGE e003(zpedro)
+      with 'ZINV'.
   ENDIF.
 
 ENDFORM.
@@ -69,7 +70,8 @@ FORM alv_event .
   WHERE idinv = p_IDINV.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      with 'ZINV'.
   ENDIF.
 
   TRY.
@@ -82,7 +84,7 @@ FORM alv_event .
           t_table      = gt_tab_zinv.
 
     CATCH cx_salv_msg.
-      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
 
   ENDTRY.
 

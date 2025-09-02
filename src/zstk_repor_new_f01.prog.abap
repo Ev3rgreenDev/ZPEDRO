@@ -44,7 +44,8 @@ FORM get_zstock.
   WHERE (gv_campos).
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      WITH 'gt_tab_zstock'.
   ENDIF.
 
 ENDFORM.
@@ -90,7 +91,7 @@ FORM alv_event .
           t_table      = gt_tab_zstock_aux.
 
     CATCH cx_salv_msg.
-      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
 
   ENDTRY.
 

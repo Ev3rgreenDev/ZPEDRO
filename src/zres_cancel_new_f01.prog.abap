@@ -37,7 +37,8 @@ FORM update_zres.
   WHERE idres = p_IDRES.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    MESSAGE e003(zpedro)
+      WITH 'ZRES'.
   ENDIF.
 
 ENDFORM.
@@ -57,7 +58,8 @@ FORM alv_event.
   WHERE idres = p_IDRES.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      WITH 'ZRES'.
   ENDIF.
 
   TRY.
@@ -70,7 +72,7 @@ FORM alv_event.
           t_table      = gt_tab_zres.
 
     CATCH cx_salv_msg.
-      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
 
   ENDTRY.
 

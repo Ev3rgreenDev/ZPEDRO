@@ -40,7 +40,8 @@ FORM get_zinv  CHANGING p_gs_itab_zinv.
   WHERE idinv = p_IDINV.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      with 'ZINV'.
   ENDIF.
 
 ENDFORM.
@@ -86,7 +87,8 @@ FORM update_zstock_add  CHANGING p_gv_qty_final TYPE ze_qty3.
     AND locid = gs_itab_zinv-locid.
 
     IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+      MESSAGE e003(zpedro)
+      with 'ZSTOCK'.
     ENDIF.
 
   ENDIF.
@@ -115,7 +117,8 @@ FORM update_zstock_sub  CHANGING p_gv_qty_final TYPE ze_qty3.
     AND locid = gs_itab_zinv-locid.
 
     IF sy-subrc NE 0.
-      MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+      MESSAGE e003(zpedro)
+      with 'ZSTOCK'.
     ENDIF.
 
   ENDIF.
@@ -136,7 +139,8 @@ FORM update_zinv .
   WHERE idinv = p_IDINV.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer update!' TYPE 'E'.
+    MESSAGE e003(zpedro)
+      with 'ZINV'.
   ENDIF.
 
 ENDFORM.
@@ -157,7 +161,8 @@ FORM mov  CHANGING p_gv_idmov     TYPE ze_guid32
     INTO p_gv_idmov.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      with 'IDMOV MAX'.
   ENDIF.
 
   p_gv_idmov = p_gv_idmov + 1.
@@ -177,7 +182,8 @@ FORM mov  CHANGING p_gv_idmov     TYPE ze_guid32
   INSERT zmov FROM p_gs_itab_zmov.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
+    MESSAGE e000(zpedro)
+      with 'ZMOV'.
   ENDIF.
 
 ENDFORM.
@@ -198,7 +204,8 @@ FORM alv_event .
     AND locid = gs_itab_zinv-locid.
 
   IF sy-subrc NE 0.
-    MESSAGE 'Erro ao fazer select!' TYPE 'E'.
+    MESSAGE e002(zpedro)
+      with 'ZSTOCK'.
   ENDIF.
 
   TRY.
@@ -211,7 +218,7 @@ FORM alv_event .
           t_table      = gt_tab_zstock.
 
     CATCH cx_salv_msg.
-      MESSAGE 'Erro ao fazer try!' TYPE 'E'.
+      MESSAGE e001(zpedro).
   ENDTRY.
 
   CALL METHOD gr_alv->display.
