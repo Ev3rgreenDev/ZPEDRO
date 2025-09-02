@@ -54,41 +54,41 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_CAMPOS
 *&---------------------------------------------------------------------*
-FORM get_selection  CHANGING lv_campos.
+FORM get_selection  CHANGING i_gv_campos.
 
   IF p_MATNR IS NOT INITIAL.
 
-    CONCATENATE 'MATNR = p_MATNR' lv_campos INTO lv_campos RESPECTING BLANKS.
+    CONCATENATE 'MATNR = p_MATNR' i_gv_campos INTO i_gv_campos RESPECTING BLANKS.
 
   ENDIF.
 
-  IF p_LOCID IS NOT INITIAL AND lv_campos IS INITIAL.
+  IF p_LOCID IS NOT INITIAL AND i_gv_campos IS INITIAL.
 
-    CONCATENATE 'LOCID = p_LOCID' lv_campos INTO lv_campos RESPECTING BLANKS.
+    CONCATENATE 'LOCID = p_LOCID' i_gv_campos INTO i_gv_campos RESPECTING BLANKS.
 
-  ELSEIF p_LOCID IS NOT INITIAL AND lv_campos IS NOT INITIAL.
+  ELSEIF p_LOCID IS NOT INITIAL AND i_gv_campos IS NOT INITIAL.
 
-    CONCATENATE lv_campos ' AND LOCID = p_LOCID'  INTO lv_campos RESPECTING BLANKS.
-
-  ENDIF.
-
-  IF p_DATA_I IS NOT INITIAL AND lv_campos IS INITIAL.
-
-    CONCATENATE 'DATA GE p_DATA_I AND DATA LE p_DATA_F' lv_campos INTO lv_campos RESPECTING BLANKS.
-
-  ELSEIF p_DATA_I IS NOT INITIAL AND lv_campos IS NOT INITIAL.
-
-    CONCATENATE lv_campos ' AND DATA GE p_DATA_I AND DATA LE p_DATA_F' INTO lv_campos RESPECTING BLANKS.
+    CONCATENATE i_gv_campos ' AND LOCID = p_LOCID'  INTO i_gv_campos RESPECTING BLANKS.
 
   ENDIF.
 
-  IF p_TPMOV IS NOT INITIAL AND lv_campos IS INITIAL.
+  IF p_DATA_I IS NOT INITIAL AND i_gv_campos IS INITIAL.
 
-    CONCATENATE 'TPMOV = p_TPMOV' lv_campos INTO lv_campos RESPECTING BLANKS.
+    CONCATENATE 'DATA GE p_DATA_I AND DATA LE p_DATA_F' i_gv_campos INTO i_gv_campos RESPECTING BLANKS.
 
-  ELSEIF p_TPMOV IS NOT INITIAL AND lv_campos IS NOT INITIAL.
+  ELSEIF p_DATA_I IS NOT INITIAL AND i_gv_campos IS NOT INITIAL.
 
-    CONCATENATE lv_campos ' AND TPMOV = p_TPMOV'  INTO lv_campos RESPECTING BLANKS.
+    CONCATENATE i_gv_campos ' AND DATA GE p_DATA_I AND DATA LE p_DATA_F' INTO i_gv_campos RESPECTING BLANKS.
+
+  ENDIF.
+
+  IF p_TPMOV IS NOT INITIAL AND i_gv_campos IS INITIAL.
+
+    CONCATENATE 'TPMOV = p_TPMOV' i_gv_campos INTO i_gv_campos RESPECTING BLANKS.
+
+  ELSEIF p_TPMOV IS NOT INITIAL AND i_gv_campos IS NOT INITIAL.
+
+    CONCATENATE i_gv_campos ' AND TPMOV = p_TPMOV'  INTO i_gv_campos RESPECTING BLANKS.
 
   ENDIF.
 
@@ -101,7 +101,7 @@ ENDFORM.
 *&      --> LV_CAMPOS
 *&      <-- LT_TAB_ZMOV
 *&---------------------------------------------------------------------*
-FORM get_zmov  USING lv_campos TYPE string.
+FORM get_zmov USING i_gv_campos TYPE string.
 
   IF p_MATNR IS NOT INITIAL
      OR p_LOCID IS NOT INITIAL
@@ -110,8 +110,8 @@ FORM get_zmov  USING lv_campos TYPE string.
 
     SELECT *
       FROM zmov
-      INTO TABLE lt_tab_zmov
-      WHERE (lv_campos).
+      INTO TABLE gt_tab_zmov
+      WHERE (i_gv_campos).
 
     IF sy-subrc NE 0.
       MESSAGE 'Erro ao fazer select!' TYPE 'E'.
@@ -121,7 +121,7 @@ FORM get_zmov  USING lv_campos TYPE string.
 
     SELECT *
       FROM zmov
-      INTO TABLE lt_tab_zmov.
+      INTO TABLE gt_tab_zmov.
 
     IF sy-subrc NE 0.
       MESSAGE 'Erro ao fazer select!' TYPE 'E'.
@@ -137,15 +137,15 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LS_ITAB_ZMOV
 *&---------------------------------------------------------------------*
-FORM tpmov_processing  CHANGING ls_itab_zmov TYPE zmov.
+FORM tpmov_processing  CHANGING p_gs_itab_zmov TYPE zmov.
 
   IF p_TPMOV IS INITIAL.
 
-    LOOP AT lt_tab_zmov INTO ls_itab_zmov WHERE tpmov = 'SA' OR tpmov = 'TD'.
+    LOOP AT gt_tab_zmov INTO p_gs_itab_zmov WHERE tpmov = 'SA' OR tpmov = 'TD'.
 
-      ls_itab_zmov-qty = ls_itab_zmov-qty * -1.
+      p_gs_itab_zmov-qty = p_gs_itab_zmov-qty * -1.
 
-      MODIFY TABLE lt_tab_zmov FROM ls_itab_zmov TRANSPORTING qty.
+      MODIFY TABLE gt_tab_zmov FROM p_gs_itab_zmov TRANSPORTING qty.
       IF sy-subrc NE 0.
         MESSAGE 'Erro ao fazer modify!' TYPE 'E'.
       ENDIF.
@@ -169,13 +169,13 @@ FORM alv_event .
         EXPORTING
           list_display = if_salv_c_bool_sap=>false
         IMPORTING
-          r_salv_table = lr_alv
+          r_salv_table = gr_alv
         CHANGING
-          t_table      = lt_tab_zmov.
+          t_table      = gt_tab_zmov.
 
-      lo_agregador = lr_alv->get_aggregations( ).
+      go_agregador = gr_alv->get_aggregations( ).
 
-      CALL METHOD lo_agregador->add_aggregation
+      CALL METHOD go_agregador->add_aggregation
         EXPORTING
           columnname  = 'QTY'
           aggregation = if_salv_c_aggregation=>total.
@@ -186,18 +186,18 @@ FORM alv_event .
 
   IF p_TPMOV IS INITIAL.
 
-    CALL METHOD lr_alv->get_sorts
+    CALL METHOD gr_alv->get_sorts
       RECEIVING
-        value = lo_sort.
+        value = go_sort.
 
     TRY.
-        CALL METHOD lo_sort->add_sort
+        CALL METHOD go_sort->add_sort
           EXPORTING
             columnname = 'TPMOV'
           RECEIVING
-            value      = lo_sort_column.
+            value      = go_sort_column.
 
-        CALL METHOD lo_sort_column->set_subtotal
+        CALL METHOD go_sort_column->set_subtotal
           EXPORTING
             value = if_salv_c_bool_sap=>true.
       CATCH cx_salv_data_error cx_salv_not_found cx_salv_existing.
@@ -206,6 +206,6 @@ FORM alv_event .
 
   ENDIF.
 
-  CALL METHOD lr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.

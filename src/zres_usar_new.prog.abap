@@ -14,20 +14,20 @@ AT SELECTION-SCREEN.
 
   PERFORM valida.
 
-  PERFORM set_var CHANGING lv_data lv_hora.
+  PERFORM set_var CHANGING gv_data gv_hora.
 
 
  START-OF-SELECTION.
 
-  PERFORM get_zres CHANGING ls_itab_zres.
+  PERFORM get_zres CHANGING gs_itab_zres.
 
-  PERFORM get_stock CHANGING lv_qty_stock.
+  PERFORM get_stock CHANGING gv_qty_stock.
 
-  PERFORM valida_qty_set_qty USING lv_qty_stock ls_itab_zres CHANGING lv_qty_final.
+  PERFORM valida_qty_set_qty USING gv_qty_stock gs_itab_zres CHANGING gv_qty_final.
 
-  PERFORM update_zstock USING lv_qty_final lv_data.
+  PERFORM update_zstock USING gv_qty_final gv_data.
 
-  PERFORM mov CHANGING lv_idmov ls_itab_zmov.
+  PERFORM mov CHANGING gv_idmov gs_itab_zmov.
 
   PERFORM update_zres.
 

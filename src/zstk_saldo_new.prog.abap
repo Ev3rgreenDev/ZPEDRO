@@ -17,6 +17,6 @@ AT SELECTION-SCREEN.
 
 START-OF-SELECTION.
 
-  PERFORM get_string CHANGING lv_string.
+  PERFORM get_string CHANGING gv_string.
 
-  PERFORM alv_event USING lv_string.
+  PERFORM alv_event USING gv_string.

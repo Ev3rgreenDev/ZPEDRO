@@ -3,16 +3,16 @@
 *&---------------------------------------------------------------------*
 
 DATA: " TABELA ZMAT
-      lt_tab_zmat  TYPE TABLE OF zmat,
-      ls_est_zmat  TYPE zsmat,
-      ls_itab_zmat TYPE zmat,
-      lt_ttab_zmat TYPE zttmat,
+      gt_tab_zmat  TYPE TABLE OF zmat,
+      gs_est_zmat  TYPE zsmat,
+      gs_itab_zmat TYPE zmat,
+      gt_ttab_zmat TYPE zttmat,
 
       " ALV
-      lr_alv       TYPE REF TO cl_salv_table,
+      gr_alv       TYPE REF TO cl_salv_table,
 
       " VARIAVEIS
-      lv_matnr     TYPE ze_matnr.
+      gv_matnr     TYPE ze_matnr.
 
 
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.

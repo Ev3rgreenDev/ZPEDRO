@@ -17,6 +17,6 @@ AT SELECTION-SCREEN.
 
 START-OF-SELECTION.
 
-  PERFORM create_zinv CHANGING lv_idinv lv_status lv_data.
+  PERFORM create_zinv CHANGING gv_idinv gv_data.
 
   PERFORM alv_event.

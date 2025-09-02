@@ -12,13 +12,13 @@ INCLUDE zstk_repor_new_f01.
 
 AT SELECTION-SCREEN.
 
-  PERFORM set_campos CHANGING lv_campos.
+  PERFORM set_campos CHANGING gv_campos.
 
 
 START-OF-SELECTION.
 
   PERFORM get_zstock.
 
-  PERFORM set_zstock CHANGING lv_qty_sug ls_itab_zstock_aux.
+  PERFORM set_zstock CHANGING gv_qty_sug gs_itab_zstock_aux.
 
   PERFORM alv_event.

@@ -17,10 +17,10 @@ AT SELECTION-SCREEN.
 
 START-OF-SELECTION.
 
-  PERFORM check_stock CHANGING ls_itab_zstock.
+  PERFORM check_stock CHANGING gs_itab_zstock.
 
-  PERFORM update_stock CHANGING lv_qty.
+  PERFORM update_stock CHANGING gv_qty.
 
-  PERFORM create_zmov CHANGING lv_idmov ls_itab_zmov.
+  PERFORM create_zmov CHANGING gv_idmov gs_itab_zmov.
 
   PERFORM alv_event.

@@ -17,10 +17,10 @@ PERFORM valida CHANGING p_DATA_F.
 
 START-OF-SELECTION.
 
-PERFORM get_selection CHANGING lv_campos.
+PERFORM get_selection CHANGING gv_campos.
 
-PERFORM get_zmov USING lv_campos.
+PERFORM get_zmov USING gv_campos.
 
-PERFORM tpmov_processing CHANGING ls_itab_zmov.
+PERFORM tpmov_processing CHANGING gs_itab_zmov.
 
 PERFORM alv_event.

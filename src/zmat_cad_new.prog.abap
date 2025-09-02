@@ -16,10 +16,10 @@ AT SELECTION-SCREEN.
 
 START-OF-SELECTION.
 
-  PERFORM check_matnr CHANGING lv_MATNR.
+  PERFORM check_matnr CHANGING gv_MATNR.
 
-  PERFORM update_zmat USING lv_matnr.
+  PERFORM update_zmat USING gv_matnr.
 
-  PERFORM create_zmat USING lv_matnr.
+  PERFORM create_zmat USING gv_matnr.
 
   PERFORM alv_event.

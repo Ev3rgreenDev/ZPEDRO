@@ -5,19 +5,19 @@
 *&---------------------------------------------------------------------*
 *&      <-- LV_STRING
 *&---------------------------------------------------------------------*
-FORM get_string CHANGING lv_string TYPE string.
+FORM get_string CHANGING i_gv_string TYPE string.
 
   IF p_MATNR IS NOT INITIAL AND p_LOCID IS NOT INITIAL.
 
-    lv_string = 'matnr = p_MATNR AND locid = p_LOCID'.
+    i_gv_string = 'matnr = p_MATNR AND locid = p_LOCID'.
 
   ELSEIF p_MATNR IS NOT INITIAL.
 
-    lv_string = 'matnr = p_MATNR'.
+    i_gv_string = 'matnr = p_MATNR'.
 
   ELSEIF p_LOCID IS NOT INITIAL.
 
-    lv_string = 'locid = p_LOCID'.
+    i_gv_string = 'locid = p_LOCID'.
 
   ENDIF.
 
@@ -29,13 +29,13 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      --> LV_STRING
 *&---------------------------------------------------------------------*
-FORM alv_event USING lv_string TYPE string.
+FORM alv_event USING i_gv_string TYPE string.
 
   IF p_MATNR IS INITIAL AND p_LOCID IS INITIAL.
 
     SELECT *
       FROM zstock
-      INTO TABLE lt_tab_zstock.
+      INTO TABLE gt_tab_zstock.
 
     IF sy-subrc NE 0.
       MESSAGE 'Erro ao fazer select!' TYPE 'E'.
@@ -45,8 +45,8 @@ FORM alv_event USING lv_string TYPE string.
 
     SELECT *
       FROM zstock
-      INTO TABLE lt_tab_zstock
-      WHERE (lv_string).
+      INTO TABLE gt_tab_zstock
+      WHERE (i_gv_string).
 
     IF sy-subrc NE 0.
       MESSAGE 'Erro ao fazer select!' TYPE 'E'.
@@ -59,13 +59,13 @@ FORM alv_event USING lv_string TYPE string.
         EXPORTING
           list_display = if_salv_c_bool_sap=>false
         IMPORTING
-          r_salv_table = lr_alv
+          r_salv_table = gr_alv
         CHANGING
-          t_table      = lt_tab_zstock.
+          t_table      = gt_tab_zstock.
 
-      lo_agregador = lr_alv->get_aggregations( ).
+      go_agregador = gr_alv->get_aggregations( ).
 
-      CALL METHOD lo_agregador->add_aggregation
+      CALL METHOD go_agregador->add_aggregation
         EXPORTING
           columnname  = 'QTY'
           aggregation = if_salv_c_aggregation=>total.
@@ -75,25 +75,25 @@ FORM alv_event USING lv_string TYPE string.
 
   ENDTRY.
 
-  CALL METHOD lr_alv->get_sorts
+  CALL METHOD gr_alv->get_sorts
     RECEIVING
-      value = lo_sort.
+      value = go_sort.
 
   TRY.
-      CALL METHOD lo_sort->add_sort
+      CALL METHOD go_sort->add_sort
         EXPORTING
           columnname = 'MATNR'
         RECEIVING
-          value      = lo_sort_column.
+          value      = go_sort_column.
 
-      CALL METHOD lo_sort_column->set_subtotal
+      CALL METHOD go_sort_column->set_subtotal
         EXPORTING
           value = if_salv_c_bool_sap=>true.
     CATCH cx_salv_data_error cx_salv_not_found cx_salv_existing.
       MESSAGE 'Erro ao fazer try!' TYPE 'E'.
   ENDTRY.
 
-  CALL METHOD lr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.
 *&---------------------------------------------------------------------*

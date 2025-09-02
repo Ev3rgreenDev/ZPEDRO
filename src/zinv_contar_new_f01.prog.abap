@@ -10,13 +10,13 @@
 *&      <-- LV_DATA
 *&---------------------------------------------------------------------*
 FORM valida CHANGING p_idinv TYPE ze_guid32
-                     lv_data TYPE dats.
+                     i_gv_data TYPE dats.
 
   SELECT SINGLE idinv
   FROM zinv
   INTO p_IDINV
   WHERE idinv = p_IDINV
-  AND status = c_status.
+  AND status = gc_status.
 
   IF sy-subrc NE 0.
     MESSAGE 'Item inválido.' TYPE 'E'.
@@ -26,7 +26,7 @@ FORM valida CHANGING p_idinv TYPE ze_guid32
     MESSAGE 'Insira uma quantidade maior ou igual a 0.' TYPE 'E'.
   ENDIF.
 
-  lv_data = sy-datum.
+  i_gv_data = sy-datum.
 
 
 ENDFORM.
@@ -38,14 +38,14 @@ ENDFORM.
 *&      --> P_QTY
 *&      --> LV_DATA
 *&---------------------------------------------------------------------*
-FORM update_zinv  USING p_qty   TYPE ze_qty3
-                        lv_data TYPE dats.
+FORM update_zinv  USING i_p_qty   TYPE ze_qty3
+                        i_gv_data TYPE dats.
 
 
   UPDATE zinv
-  SET qty_contada = @p_QTY,
-  status = @c_status,
-  data_cont = @lv_data
+  SET qty_contada = @i_p_QTY,
+  status = @gc_status,
+  data_cont = @i_gv_data
   WHERE idinv = @p_IDINV.
 
   IF sy-subrc NE 0.
@@ -65,7 +65,7 @@ FORM alv_event .
 
   SELECT *
   FROM zinv
-  INTO TABLE lt_tab_zinv
+  INTO TABLE gt_tab_zinv
   WHERE idinv = p_IDINV.
 
   IF sy-subrc NE 0.
@@ -77,15 +77,15 @@ FORM alv_event .
         EXPORTING
           list_display = if_salv_c_bool_sap=>false
         IMPORTING
-          r_salv_table = lr_alv
+          r_salv_table = gr_alv
         CHANGING
-          t_table      = lt_tab_zinv.
+          t_table      = gt_tab_zinv.
 
     CATCH cx_salv_msg.
       MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 
-  CALL METHOD lr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.

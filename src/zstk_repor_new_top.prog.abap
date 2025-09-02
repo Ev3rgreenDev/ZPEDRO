@@ -3,34 +3,34 @@
 *&---------------------------------------------------------------------*
 
 DATA: "TABELA ZSTOCK
-  lt_tab_zstock      TYPE TABLE OF zstock,
-  ls_est_zstock      TYPE zsstock,
-  ls_itab_zstock     TYPE zstock,
-  lt_tab_zstock_aux  TYPE TABLE OF zstock_aux,
-  ltt_est_zstock_aux TYPE zttstock_aux,
-  ls_itab_zstock_aux TYPE zstock_aux,
+  gt_tab_zstock      TYPE TABLE OF zstock,
+  gs_est_zstock      TYPE zsstock,
+  gs_itab_zstock     TYPE zstock,
+  gt_tab_zstock_aux  TYPE TABLE OF zstock_aux,
+  gtt_est_zstock_aux TYPE zttstock_aux,
+  gs_itab_zstock_aux TYPE zstock_aux,
 
   " TABELA ZMOV
-  lt_tab_zmov        TYPE TABLE OF zmov,
-  ls_est_zmov        TYPE zsmov,
-  ls_itab_zmov       TYPE zmov,
+  gt_tab_zmov        TYPE TABLE OF zmov,
+  gs_est_zmov        TYPE zsmov,
+  gs_itab_zmov       TYPE zmov,
 
   " ALV
-  lr_alv             TYPE REF TO cl_salv_table,
-  lo_agregador       TYPE REF TO cl_salv_aggregations,
+  gr_alv             TYPE REF TO cl_salv_table,
+  go_agregador       TYPE REF TO cl_salv_aggregations,
   oref               TYPE REF TO cx_root,
-  lo_sort            TYPE REF TO cl_salv_sorts,
-  lo_sort_column     TYPE REF TO cl_salv_sort,
+  go_sort            TYPE REF TO cl_salv_sorts,
+  go_sort_column     TYPE REF TO cl_salv_sort,
 
   " VARIAVEIS
-  lv_data            TYPE dats,
-  lv_IDMOV           TYPE ze_guid32,
-  lv_TPMOV           TYPE ze_tpmov,
-  lv_HORA            TYPE tims,
-  lv_qty_origem      TYPE ze_qty3,
-  lv_qty_destino     TYPE ze_qty3,
-  lv_campos          TYPE string,
-  lv_qty_sug         TYPE ze_qty3.
+  gv_data            TYPE dats,
+  gv_IDMOV           TYPE ze_guid32,
+  gv_TPMOV           TYPE ze_tpmov,
+  gv_HORA            TYPE tims,
+  gv_qty_origem      TYPE ze_qty3,
+  gv_qty_destino     TYPE ze_qty3,
+  gv_campos          TYPE string,
+  gv_qty_sug         TYPE ze_qty3.
 
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.
   PARAMETERS: p_MATNR TYPE ze_MATNR,

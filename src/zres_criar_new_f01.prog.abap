@@ -44,12 +44,12 @@ FORM valida_qty .
 
   SELECT SINGLE qty_res
     FROM zres
-    INTO lv_qty_res
+    INTO gv_qty_res
     WHERE matnr = p_MATNR
     AND locid = p_LOCID.
 
   IF sy-subrc = 0.
-    IF p_QTY + lv_qty_res GT ls_itab_zres_c-qty.
+    IF p_QTY + gv_qty_res GT ls_itab_zres_c-qty.
       MESSAGE 'Valor a ser reservado é maior do que o valor em estoque.' TYPE 'E'.
     ENDIF.
   ELSE.
@@ -69,9 +69,9 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LV_DATA
 *&---------------------------------------------------------------------*
-FORM set_data  CHANGING lv_data TYPE dats.
+FORM set_data  CHANGING i_gv_data TYPE dats.
 
-  lv_data = sy-datum.
+  i_gv_data = sy-datum.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -83,31 +83,30 @@ ENDFORM.
 *&      <-- LV_STATUS
 *&      <-- LS_ITAB_ZRES
 *&---------------------------------------------------------------------*
-FORM mov CHANGING lv_idres     TYPE ze_guid32
-                  ls_itab_zres TYPE zres.
+FORM mov CHANGING i_gv_idres     TYPE ze_guid32
+                  p_gs_itab_zres TYPE zres.
 
   SELECT MAX( idres )
     FROM zres
-    INTO lv_IDRES.
+    INTO i_gv_IDRES.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer select!' TYPE 'E'.
   ENDIF.
 
-  lv_IDRES = lv_IDRES + 1.
+  i_gv_IDRES = i_gv_IDRES + 1.
 
-  MOVE lv_IDRES  TO ls_itab_zres-idres.
-  MOVE p_MATNR   TO ls_itab_zres-matnr.
-  MOVE p_LOCID   TO ls_itab_zres-locid.
-  MOVE p_QTY     TO ls_itab_zres-qty_res.
-  MOVE lv_data   TO ls_itab_zres-data.
-  MOVE c_status  TO ls_itab_zres-status.
+  MOVE i_gv_IDRES TO p_gs_itab_zres-idres.
+  MOVE p_MATNR    TO p_gs_itab_zres-matnr.
+  MOVE p_LOCID    TO p_gs_itab_zres-locid.
+  MOVE p_QTY      TO p_gs_itab_zres-qty_res.
+  MOVE gv_data    TO p_gs_itab_zres-data.
+  MOVE gc_status  TO p_gs_itab_zres-status.
 
-  ls_itab_zres-idres = |{ ls_itab_zres-idres ALPHA = IN }|.
-  ls_itab_zres-matnr = CONV char18( |{ ls_itab_zres-matnr ALPHA = IN }| ).
-  ls_itab_zres-locid = |{ ls_itab_zres-locid ALPHA = IN }|.
+  p_gs_itab_zres-idres = |{ p_gs_itab_zres-idres ALPHA = IN }|.
+  p_gs_itab_zres-locid = |{ p_gs_itab_zres-locid ALPHA = IN }|.
 
-  INSERT zres FROM ls_itab_zres.
+  INSERT zres FROM p_gs_itab_zres.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
@@ -127,8 +126,8 @@ FORM alv_event .
 
   SELECT *
   FROM zres
-  INTO TABLE lt_tab_zres
-  WHERE idres = ls_itab_zres-idres.
+  INTO TABLE gt_tab_zres
+  WHERE idres = gs_itab_zres-idres.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer select!' TYPE 'E'.
@@ -139,15 +138,15 @@ FORM alv_event .
         EXPORTING
           list_display = if_salv_c_bool_sap=>false
         IMPORTING
-          r_salv_table = lr_alv
+          r_salv_table = gr_alv
         CHANGING
-          t_table      = lt_tab_zres.
+          t_table      = gt_tab_zres.
 
     CATCH cx_salv_msg.
       MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 
-  CALL METHOD lr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.

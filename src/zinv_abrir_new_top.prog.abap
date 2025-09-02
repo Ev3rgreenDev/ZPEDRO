@@ -3,30 +3,30 @@
 *&---------------------------------------------------------------------*
 
 DATA: "TABELA ZSTOCK
-  lt_tab_zstock  TYPE TABLE OF zstock,
-  ls_est_zstock  TYPE zsstock,
-  ls_itab_zstock TYPE zstock,
+  gt_tab_zstock  TYPE TABLE OF zstock,
+  gs_est_zstock  TYPE zsstock,
+  gs_itab_zstock TYPE zstock,
 
   " TABELA ZINV
-  lt_tab_ZINV    TYPE TABLE OF zinv,
-  ls_itab_ZINV   TYPE zinv,
+  gt_tab_ZINV    TYPE TABLE OF zinv,
+  gs_itab_ZINV   TYPE zinv,
 
   " ALV
-  lr_alv         TYPE REF TO cl_salv_table,
-  lo_agregador   TYPE REF TO cl_salv_aggregations,
+  gr_alv         TYPE REF TO cl_salv_table,
+  go_agregador   TYPE REF TO cl_salv_aggregations,
   oref           TYPE REF TO cx_root,
-  lo_sort        TYPE REF TO cl_salv_sorts,
-  lo_sort_column TYPE REF TO cl_salv_sort,
+  go_sort        TYPE REF TO cl_salv_sorts,
+  go_sort_column TYPE REF TO cl_salv_sort,
 
   " VARIAVEIS
-  lv_data        TYPE dats,
-  lv_IDINV       TYPE ze_guid32,
-  lv_status      TYPE ze_stat_inv,
-  lv_HORA        TYPE tims,
-  lv_qty_origem  TYPE ze_qty3,
-  lv_qty_destino TYPE ze_qty3,
-  lv_saida       TYPE ze_qty3,
-  lv_campos      TYPE string.
+  gv_data        TYPE dats,
+  gv_IDINV       TYPE ze_guid32,
+  gc_status      TYPE c LENGTH 1 VALUE 'A',
+  gv_HORA        TYPE tims,
+  gv_qty_origem  TYPE ze_qty3,
+  gv_qty_destino TYPE ze_qty3,
+  gv_saida       TYPE ze_qty3,
+  gv_campos      TYPE string.
 
 
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.

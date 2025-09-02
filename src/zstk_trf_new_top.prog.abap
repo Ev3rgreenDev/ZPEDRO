@@ -4,25 +4,25 @@
 
 
 DATA: "TABELA ZSTOCK
-  lt_tab_zstock  TYPE TABLE OF zstock,
-  ls_est_zstock  TYPE zsstock,
-  ls_itab_zstock TYPE zstock,
+  gt_tab_zstock  TYPE TABLE OF zstock,
+  gs_est_zstock  TYPE zsstock,
+  gs_itab_zstock TYPE zstock,
 
   " TABELA ZMOV
-  lt_tab_zmov    TYPE TABLE OF zmov,
-  ls_est_zmov    TYPE zsmov,
-  ls_itab_zmov   TYPE zmov,
+  gt_tab_zmov    TYPE TABLE OF zmov,
+  gs_est_zmov    TYPE zsmov,
+  gs_itab_zmov   TYPE zmov,
 
   " VARIAVEIS
-  lr_alv         TYPE REF TO cl_salv_table,
-  lv_data        TYPE dats,
-  lv_IDMOV       TYPE ze_guid32,
-  c_TPMOV_tr     TYPE c LENGTH 2 VALUE 'TR',
-  c_TPMOV_td     TYPE c LENGTH 2 VALUE 'TD',
-  lv_HORA        TYPE tims,
-  lv_qty_origem  TYPE ze_qty3,
-  lv_qty_destino TYPE ze_qty3,
-  lv_destin      TYPE ze_locid.
+  gr_alv         TYPE REF TO cl_salv_table,
+  gv_data        TYPE dats,
+  gv_IDMOV       TYPE ze_guid32,
+  gc_TPMOV_tr    TYPE c LENGTH 2 VALUE 'TR',
+  gc_TPMOV_td    TYPE c LENGTH 2 VALUE 'TD',
+  gv_HORA        TYPE tims,
+  gv_qty_origem  TYPE ze_qty3,
+  gv_qty_destino TYPE ze_qty3,
+  gv_destin      TYPE ze_locid.
 
 
   SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.

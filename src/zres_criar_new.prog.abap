@@ -16,12 +16,12 @@ AT SELECTION-SCREEN.
 
   PERFORM valida_qty.
 
-  PERFORM set_data CHANGING lv_data.
+  PERFORM set_data CHANGING gv_data.
 
 
 
 START-OF-SELECTION.
 
-  PERFORM mov CHANGING lv_idres ls_itab_zres.
+  PERFORM mov CHANGING gv_idres gs_itab_zres.
 
   PERFORM alv_event.

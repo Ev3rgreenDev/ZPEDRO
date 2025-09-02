@@ -30,34 +30,32 @@ ENDFORM.
 *&      <-- LV_STATUS
 *&      <-- LV_DATA
 *&---------------------------------------------------------------------*
-FORM create_zinv  CHANGING lv_idinv TYPE ze_guid32
-                           lv_status TYPE ze_stat_inv
-                           lv_data TYPE dats.
+FORM create_zinv  CHANGING i_gv_idinv  TYPE ze_guid32
+                           i_gv_data   TYPE dats.
 
   SELECT MAX( idinv )
       FROM zinv
-      INTO lv_idinv.
+      INTO i_gv_idinv.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer select!' TYPE 'E'.
   ENDIF.
 
-  lv_idinv  = lv_idinv + 1.
-  lv_status = 'A'.
-  lv_data   = sy-datum.
+  i_gv_idinv  = i_gv_idinv + 1.
+  i_gv_data   = sy-datum.
 
-  MOVE lv_idinv TO ls_itab_zinv-idinv.
-  MOVE p_MATNR TO ls_itab_zinv-matnr.
-  MOVE p_LOCID TO ls_itab_zinv-locid.
-  MOVE lv_data TO ls_itab_zinv-data_cont.
-  MOVE lv_status TO ls_itab_zinv-status.
+  MOVE i_gv_idinv TO gs_itab_zinv-idinv.
+  MOVE p_MATNR    TO gs_itab_zinv-matnr.
+  MOVE p_LOCID    TO gs_itab_zinv-locid.
+  MOVE i_gv_data  TO gs_itab_zinv-data_cont.
+  MOVE gc_status  TO gs_itab_zinv-status.
 
 
-  ls_itab_zinv-idinv = |{ ls_itab_zinv-idinv ALPHA = IN }|.
-  ls_itab_zinv-matnr = |{ ls_itab_zinv-matnr ALPHA = IN }|.
-  ls_itab_zinv-locid = |{ ls_itab_zinv-locid ALPHA = IN }|.
+  gs_itab_zinv-idinv = |{ gs_itab_zinv-idinv ALPHA = IN }|.
+  gs_itab_zinv-matnr = |{ gs_itab_zinv-matnr ALPHA = IN }|.
+  gs_itab_zinv-locid = |{ gs_itab_zinv-locid ALPHA = IN }|.
 
-  INSERT zinv FROM ls_itab_zinv.
+  INSERT zinv FROM gs_itab_zinv.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
@@ -76,7 +74,7 @@ FORM alv_event.
 
   SELECT *
     FROM zinv
-    INTO TABLE lt_tab_zinv
+    INTO TABLE gt_tab_zinv
     WHERE matnr = p_MATNR
     AND locid = p_LOCID.
 
@@ -89,15 +87,15 @@ FORM alv_event.
         EXPORTING
           list_display = if_salv_c_bool_sap=>false
         IMPORTING
-          r_salv_table = lr_alv
+          r_salv_table = gr_alv
         CHANGING
-          t_table      = lt_tab_zinv.
+          t_table      = gt_tab_zinv.
 
     CATCH cx_salv_msg.
       MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 
-  CALL METHOD lr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.

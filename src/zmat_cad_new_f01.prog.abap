@@ -27,11 +27,11 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      --> P_MATNR
 *&---------------------------------------------------------------------*
-FORM check_matnr CHANGING lv_matnr TYPE ze_matnr.
+FORM check_matnr CHANGING p_gv_matnr TYPE ze_matnr.
 
   SELECT SINGLE matnr
     FROM zmat
-    INTO lv_matnr
+    INTO p_gv_matnr
     WHERE matnr = p_MATNR.
 
     IF sy-subrc NE 0.
@@ -47,9 +47,9 @@ ENDFORM.
 *& -->  p1        text
 *& <--  p2        text
 *&---------------------------------------------------------------------*
-FORM update_zmat USING lv_matnr TYPE ze_matnr.
+FORM update_zmat USING p_gv_matnr TYPE ze_matnr.
 
-  IF lv_matnr IS NOT INITIAL.
+  IF p_gv_matnr IS NOT INITIAL.
 
     UPDATE zmat
       SET descr = @p_DESCR,
@@ -71,18 +71,16 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- P_MATNR
 *&---------------------------------------------------------------------*
-FORM create_zmat USING lv_matnr TYPE ze_matnr.
+FORM create_zmat USING p_gv_matnr TYPE ze_matnr.
 
-  IF lv_matnr IS INITIAL.
+  IF p_gv_matnr IS INITIAL.
 
-    MOVE p_MATNR TO ls_itab_zmat-matnr.
-    MOVE p_DESCR TO ls_itab_zmat-descr.
-    MOVE p_UNID  TO ls_itab_zmat-unid.
-    MOVE p_ATIVO TO ls_itab_zmat-ativo.
+    MOVE p_MATNR TO gs_itab_zmat-matnr.
+    MOVE p_DESCR TO gs_itab_zmat-descr.
+    MOVE p_UNID  TO gs_itab_zmat-unid.
+    MOVE p_ATIVO TO gs_itab_zmat-ativo.
 
-    ls_itab_zmat-matnr = CONV char18( |{ ls_itab_zmat-matnr ALPHA = IN }| ).
-
-    INSERT zmat FROM ls_itab_zmat.
+    INSERT zmat FROM gs_itab_zmat.
 
     IF sy-subrc NE 0.
       MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
@@ -102,8 +100,8 @@ FORM alv_event.
 
   SELECT *
       FROM zmat
-      INTO TABLE lt_tab_zmat
-      WHERE matnr = ls_itab_zmat-matnr.
+      INTO TABLE gt_tab_zmat
+      WHERE matnr = gs_itab_zmat-matnr.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer insert!' TYPE 'E'.
@@ -114,14 +112,15 @@ FORM alv_event.
         EXPORTING
           list_display = if_salv_c_bool_sap=>false
         IMPORTING
-          r_salv_table = lr_alv
+          r_salv_table = gr_alv
         CHANGING
-          t_table      = lt_tab_zmat.
+          t_table      = gt_tab_zmat.
 
     CATCH cx_salv_msg.
+      MESSAGE 'O ALV teve problemas na geração.' TYPE 'E'.
 
   ENDTRY.
 
-  CALL METHOD lr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.

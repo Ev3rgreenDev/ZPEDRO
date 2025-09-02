@@ -28,15 +28,15 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LS_ITAB_ZSTOCK
 *&---------------------------------------------------------------------*
-FORM check_stock  CHANGING ls_itab_zstock TYPE zstock.
+FORM check_stock  CHANGING p_gs_itab_zstock TYPE zstock.
 
   SELECT SINGLE *
    FROM zstock
-   INTO ls_itab_zstock
+   INTO p_gs_itab_zstock
    WHERE matnr = p_MATNR
    AND locid = p_LOCID.
 
-  IF ls_itab_zstock-qty LT p_QTY.
+  IF p_gs_itab_zstock-qty LT p_QTY.
     MESSAGE 'Quantidade em estoque é menor do que a quantidade desejada para saída.' TYPE 'E'.
   ENDIF.
 
@@ -48,12 +48,12 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *&      <-- LS_ITAB_ZSTOCK
 *&---------------------------------------------------------------------*
-FORM update_stock  CHANGING lv_qty TYPE ze_qty3.
+FORM update_stock  CHANGING i_gv_qty TYPE ze_qty3.
 
-  lv_qty = ls_itab_zstock-qty - p_QTY.
+  i_gv_qty = gs_itab_zstock-qty - p_QTY.
 
   UPDATE zstock
-  SET qty = lv_qty
+  SET qty = i_gv_qty
   WHERE matnr = p_MATNR
   AND locid = p_LOCID.
 
@@ -74,7 +74,7 @@ FORM alv_event .
 
   SELECT *
   FROM zstock
-  INTO TABLE lt_tab_zstock
+  INTO TABLE gt_tab_zstock
   WHERE matnr = p_MATNR
   AND locid = p_LOCID.
 
@@ -87,16 +87,16 @@ FORM alv_event .
         EXPORTING
           list_display = if_salv_c_bool_sap=>false
         IMPORTING
-          r_salv_table = lr_alv
+          r_salv_table = gr_alv
         CHANGING
-          t_table      = lt_tab_zstock.
+          t_table      = gt_tab_zstock.
 
     CATCH cx_salv_msg.
       MESSAGE 'Erro ao fazer try!' TYPE 'E'.
 
   ENDTRY.
 
-  CALL METHOD lr_alv->display.
+  CALL METHOD gr_alv->display.
 
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -107,34 +107,34 @@ ENDFORM.
 *&      <-- LV_IDMOV
 *&      <-- LS_ITAB_ZMOV
 *&---------------------------------------------------------------------*
-FORM create_zmov  CHANGING p_lv_idmov TYPE ze_guid32 p_ls_itab_zmov TYPE zmov.
+FORM create_zmov  CHANGING p_gv_idmov TYPE ze_guid32
+                           p_gs_itab_zmov TYPE zmov.
 
   SELECT MAX( idmov )
   FROM zmov
-  INTO lv_idmov.
+  INTO gv_idmov.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer select!' TYPE 'E'.
   ENDIF.
 
-  lv_idmov = lv_idmov + 1.
-  lv_data = sy-datum.
-  lv_hora = sy-uzeit.
+  p_gv_idmov = p_gv_idmov + 1.
+  gv_data = sy-datum.
+  gv_hora = sy-uzeit.
 
-  MOVE lv_idmov TO ls_itab_zmov-idmov.
-  MOVE p_MATNR  TO ls_itab_zmov-matnr.
-  MOVE p_LOCID  TO ls_itab_zmov-locid.
-  MOVE c_TPMOV TO ls_itab_zmov-tpmov.
-  MOVE p_QTY    TO ls_itab_zmov-qty.
-  MOVE lv_data  TO ls_itab_zmov-data.
-  MOVE lv_HORA  TO ls_itab_zmov-hora.
-  MOVE p_OBS    TO ls_itab_zmov-obs.
+  MOVE gv_idmov TO p_gs_itab_zmov-idmov.
+  MOVE p_MATNR  TO p_gs_itab_zmov-matnr.
+  MOVE p_LOCID  TO p_gs_itab_zmov-locid.
+  MOVE gc_TPMOV TO p_gs_itab_zmov-tpmov.
+  MOVE p_QTY    TO p_gs_itab_zmov-qty.
+  MOVE gv_data  TO p_gs_itab_zmov-data.
+  MOVE gv_HORA  TO p_gs_itab_zmov-hora.
+  MOVE p_OBS    TO p_gs_itab_zmov-obs.
 
-  ls_itab_zmov-idmov = |{ ls_itab_zmov-idmov ALPHA = IN }|.
-  ls_itab_zmov-matnr = |{ ls_itab_zmov-matnr ALPHA = IN }|.
-  ls_itab_zmov-locid = |{ ls_itab_zmov-locid ALPHA = IN }|.
+  p_gs_itab_zmov-idmov = |{ p_gs_itab_zmov-idmov ALPHA = IN }|.
+  p_gs_itab_zmov-locid = |{ p_gs_itab_zmov-locid ALPHA = IN }|.
 
-  INSERT zmov FROM ls_itab_zmov.
+  INSERT zmov FROM p_gs_itab_zmov.
 
   IF sy-subrc NE 0.
     MESSAGE 'Erro ao fazer insert!' TYPE 'E'.

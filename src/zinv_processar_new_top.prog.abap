@@ -3,30 +3,30 @@
 *&---------------------------------------------------------------------*
 
 DATA: "TABELA ZSTOCK
-  lt_tab_zstock  TYPE TABLE OF zstock,
-  ls_est_zstock  TYPE zsstock,
-  ls_itab_zstock TYPE zstock,
+  gt_tab_zstock  TYPE TABLE OF zstock,
+  gs_est_zstock  TYPE zsstock,
+  gs_itab_zstock TYPE zstock,
 
   " TABELA ZINV
-  lt_tab_ZINV    TYPE TABLE OF zinv,
-  ls_itab_ZINV   TYPE zinv,
+  gt_tab_ZINV    TYPE TABLE OF zinv,
+  gs_itab_ZINV   TYPE zinv,
 
   " TABELA ZMOV
-  lt_tab_zmov    TYPE TABLE OF zmov,
-  ls_est_zmov    TYPE zsmov,
-  ls_itab_zmov   TYPE zmov,
+  gt_tab_zmov    TYPE TABLE OF zmov,
+  gs_est_zmov    TYPE zsmov,
+  gs_itab_zmov   TYPE zmov,
 
   " VARIAVEIS
-  lr_alv         TYPE REF TO cl_salv_table,
-  lv_data        TYPE dats,
-  lv_dif         TYPE ze_qty3,
-  lv_qty_stock   TYPE ze_qty3,
-  lv_qty_final   TYPE ze_qty3,
-  lv_IDMOV       TYPE ze_guid32,
-  c_TPMOV       TYPE c LENGTH 2 VALUE 'AJ',
-  lv_HORA        TYPE tims,
-  lv_obs         TYPE ze_obs,
-  c_status       TYPE c LENGTH 1 VALUE 'P'.
+  gr_alv         TYPE REF TO cl_salv_table,
+  gv_data        TYPE dats,
+  gv_dif         TYPE ze_qty3,
+  gv_qty_stock   TYPE ze_qty3,
+  gv_qty_final   TYPE ze_qty3,
+  gv_IDMOV       TYPE ze_guid32,
+  gc_TPMOV       TYPE c LENGTH 2 VALUE 'AJ',
+  gv_HORA        TYPE tims,
+  gv_obs         TYPE ze_obs,
+  gc_status      TYPE c LENGTH 1 VALUE 'P'.
 
 
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.

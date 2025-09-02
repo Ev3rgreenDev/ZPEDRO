@@ -18,16 +18,16 @@ AT SELECTION-SCREEN.
 
 START-OF-SELECTION.
 
-  PERFORM get_zinv CHANGING ls_itab_zinv.
+  PERFORM get_zinv CHANGING gs_itab_zinv.
 
-  PERFORM get_stock CHANGING lv_qty_stock lv_dif.
+  PERFORM get_stock CHANGING gv_qty_stock gv_dif.
 
-  PERFORM update_zstock_add CHANGING lv_qty_final.
+  PERFORM update_zstock_add CHANGING gv_qty_final.
 
-  PERFORM update_zstock_sub CHANGING lv_qty_final.
+  PERFORM update_zstock_sub CHANGING gv_qty_final.
 
   PERFORM update_zinv.
 
-  PERFORM mov CHANGING lv_idmov ls_itab_zmov.
+  PERFORM mov CHANGING gv_idmov gs_itab_zmov.
 
   PERFORM alv_event.

@@ -3,11 +3,11 @@
 *&---------------------------------------------------------------------*
 
 DATA:
-      lt_tab_zloc  TYPE TABLE OF zloc,
-      ls_est_zloc  TYPE zsloc,
-      ls_itab_zloc TYPE zloc,
-      lr_alv       TYPE REF TO cl_salv_table,
-      lv_locid     TYPE ze_locid.
+      gt_tab_zloc  TYPE TABLE OF zloc,
+      gs_est_zloc  TYPE zsloc,
+      gs_itab_zloc TYPE zloc,
+      gr_alv       TYPE REF TO cl_salv_table,
+      gv_locid     TYPE ze_locid.
 
 
 SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-001.

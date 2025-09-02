@@ -12,10 +12,10 @@ INCLUDE ZLOC_CAD_NEW_F01.
 
 START-OF-SELECTION.
 
-PERFORM check_locid CHANGING lv_locid.
+PERFORM check_locid CHANGING gv_locid.
 
-PERFORM update_zloc USING lv_locid.
+PERFORM update_zloc USING gv_locid.
 
-PERFORM create_zloc USING lv_locid.
+PERFORM create_zloc USING gv_locid.
 
 PERFORM alv_event.
