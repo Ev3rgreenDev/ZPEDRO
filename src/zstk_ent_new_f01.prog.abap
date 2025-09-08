@@ -174,3 +174,35 @@ FORM alv_event.
   CALL METHOD gr_alv->display.
 
 ENDFORM.
+*&---------------------------------------------------------------------*
+*& Form valida_mat_loc
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*&      --> P_MATNR
+*&      --> P_LOCID
+*&---------------------------------------------------------------------*
+FORM valida_mat_loc  USING    i_p_matnr TYPE ze_matnr
+                              i_p_locid TYPE ze_locid.
+
+  SELECT SINGLE matnr
+    FROM zmat
+    INTO i_p_matnr
+    WHERE matnr = i_p_matnr.
+
+  IF sy-subrc NE 0.
+    MESSAGE e002(zpedro)
+      WITH 'ZMAT'.
+  ENDIF.
+
+  SELECT SINGLE locid
+    FROM zloc
+    INTO i_p_locid
+    WHERE locid = i_p_locid.
+
+  IF sy-subrc NE 0.
+    MESSAGE e002(zpedro)
+      WITH 'ZLOC'.
+  ENDIF.
+
+ENDFORM.

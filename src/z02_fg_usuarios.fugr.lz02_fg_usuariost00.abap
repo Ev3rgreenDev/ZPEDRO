@@ -1,6 +1,12 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
 *---------------------------------------------------------------------*
+*...processing: ZCUST...........................................*
+DATA:  BEGIN OF STATUS_ZCUST                         .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZCUST                         .
+CONTROLS: TCTRL_ZCUST
+            TYPE TABLEVIEW USING SCREEN '9013'.
 *...processing: ZINV............................................*
 DATA:  BEGIN OF STATUS_ZINV                          .   "state vector
          INCLUDE STRUCTURE VIMSTATUS.
@@ -25,6 +31,12 @@ DATA:  BEGIN OF STATUS_ZMOV                          .   "state vector
 DATA:  END OF STATUS_ZMOV                          .
 CONTROLS: TCTRL_ZMOV
             TYPE TABLEVIEW USING SCREEN '9009'.
+*...processing: ZPRICE..........................................*
+DATA:  BEGIN OF STATUS_ZPRICE                        .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZPRICE                        .
+CONTROLS: TCTRL_ZPRICE
+            TYPE TABLEVIEW USING SCREEN '9014'.
 *...processing: ZRES............................................*
 DATA:  BEGIN OF STATUS_ZRES                          .   "state vector
          INCLUDE STRUCTURE VIMSTATUS.
@@ -79,11 +91,31 @@ DATA:  BEGIN OF STATUS_ZTACC_TX                      .   "state vector
 DATA:  END OF STATUS_ZTACC_TX                      .
 CONTROLS: TCTRL_ZTACC_TX
             TYPE TABLEVIEW USING SCREEN '9005'.
+*...processing: ZVND_H..........................................*
+DATA:  BEGIN OF STATUS_ZVND_H                        .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZVND_H                        .
+CONTROLS: TCTRL_ZVND_H
+            TYPE TABLEVIEW USING SCREEN '9015'.
+*...processing: ZVND_I..........................................*
+DATA:  BEGIN OF STATUS_ZVND_I                        .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZVND_I                        .
+CONTROLS: TCTRL_ZVND_I
+            TYPE TABLEVIEW USING SCREEN '9016'.
+*...processing: ZVND_P..........................................*
+DATA:  BEGIN OF STATUS_ZVND_P                        .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZVND_P                        .
+CONTROLS: TCTRL_ZVND_P
+            TYPE TABLEVIEW USING SCREEN '9017'.
 *.........table declarations:.................................*
+TABLES: *ZCUST                         .
 TABLES: *ZINV                          .
 TABLES: *ZLOC                          .
 TABLES: *ZMAT                          .
 TABLES: *ZMOV                          .
+TABLES: *ZPRICE                        .
 TABLES: *ZRES                          .
 TABLES: *ZSTOCK                        .
 TABLES: *ZSTOCK_AUX                    .
@@ -93,10 +125,15 @@ TABLES: *ZT02_FINANCEIRO2              .
 TABLES: *ZT02_USUARIO                  .
 TABLES: *ZTACC                         .
 TABLES: *ZTACC_TX                      .
+TABLES: *ZVND_H                        .
+TABLES: *ZVND_I                        .
+TABLES: *ZVND_P                        .
+TABLES: ZCUST                          .
 TABLES: ZINV                           .
 TABLES: ZLOC                           .
 TABLES: ZMAT                           .
 TABLES: ZMOV                           .
+TABLES: ZPRICE                         .
 TABLES: ZRES                           .
 TABLES: ZSTOCK                         .
 TABLES: ZSTOCK_AUX                     .
@@ -106,6 +143,9 @@ TABLES: ZT02_FINANCEIRO2               .
 TABLES: ZT02_USUARIO                   .
 TABLES: ZTACC                          .
 TABLES: ZTACC_TX                       .
+TABLES: ZVND_H                         .
+TABLES: ZVND_I                         .
+TABLES: ZVND_P                         .
 
 * general table data declarations..............
   INCLUDE LSVIMTDT                                .
