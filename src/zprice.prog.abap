@@ -18,6 +18,6 @@ START-OF-SELECTION.
 
   PERFORM update_price USING p_matnr p_VLD_FR p_VLD_TO p_PRICE p_WAERS p_ATIVO gv_matnr.
 
-  PERFORM create_price USING p_matnr p_VLD_FR p_VLD_TO p_PRICE p_WAERS p_ATIVO gv_matnr CHANGING gwa_zprice.
+  PERFORM create_price USING p_matnr p_VLD_FR p_VLD_TO p_PRICE p_WAERS p_ATIVO gv_matnr CHANGING wa_zprice.
 
   PERFORM alv_event.

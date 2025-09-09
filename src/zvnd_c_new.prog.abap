@@ -13,13 +13,13 @@ AT SELECTION-SCREEN.
   CREATE OBJECT go_report.
   go_report->valida(
     CHANGING
-      p_data_f = p_data_f ).
+      ev_data_f = p_data_f ).
 
 START-OF-SELECTION.
   CREATE OBJECT go_report.
   go_report->set_fields(
     CHANGING
-      gv_campos = gv_campos ).
+      ev_campos = gv_campos ).
 
   go_report->get_data( ).
 

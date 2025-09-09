@@ -59,11 +59,11 @@ ENDFORM.
 *&      <-- GV_MATNR
 *&---------------------------------------------------------------------*
 FORM check_zprice  USING    i_p_matnr  TYPE ze_matnr
-                   CHANGING e_gv_matnr TYPE ze_matnr.
+                   CHANGING ev_matnr   TYPE ze_matnr.
 
   SELECT SINGLE matnr
     FROM zprice
-    INTO e_gv_matnr
+    INTO ev_matnr
     WHERE matnr = i_p_matnr.
 
 ENDFORM.
@@ -85,9 +85,9 @@ FORM update_price  USING    i_p_matnr  TYPE ze_matnr
                             i_p_price  TYPE ze_PRICE
                             i_p_waers  TYPE tcurc-waers
                             i_p_ativo  TYPE ze_FLAG
-                            i_gv_matnr TYPE ze_matnr.
+                            i_v_matnr  TYPE ze_matnr.
 
-  IF i_gv_matnr IS NOT INITIAL.
+  IF i_v_matnr IS NOT INITIAL.
 
     UPDATE zprice
     SET matnr      = @i_p_matnr,
@@ -124,20 +124,20 @@ FORM create_price  USING    i_p_matnr  TYPE ze_matnr
                             i_p_price  TYPE ze_PRICE
                             i_p_waers  TYPE tcurc-waers
                             i_p_ativo  TYPE ze_FLAG
-                            i_gv_matnr TYPE ze_matnr
+                            i_v_matnr  TYPE ze_matnr
 
-                   CHANGING p_gwa_zprice TYPE zprice.
+                   CHANGING p_wa_zprice TYPE zprice.
 
-  IF i_gv_matnr IS INITIAL.
+  IF i_v_matnr IS INITIAL.
 
-    MOVE i_p_matnr  TO p_gwa_zprice-matnr.
-    MOVE i_p_vld_fr TO p_gwa_zprice-valid_from.
-    MOVE i_p_vld_to TO p_gwa_zprice-valid_to.
-    MOVE i_p_price  TO p_gwa_zprice-price.
-    MOVE i_p_waers  TO p_gwa_zprice-currency.
-    MOVE i_p_ativo  TO p_gwa_zprice-ativo.
+    MOVE i_p_matnr  TO p_wa_zprice-matnr.
+    MOVE i_p_vld_fr TO p_wa_zprice-valid_from.
+    MOVE i_p_vld_to TO p_wa_zprice-valid_to.
+    MOVE i_p_price  TO p_wa_zprice-price.
+    MOVE i_p_waers  TO p_wa_zprice-currency.
+    MOVE i_p_ativo  TO p_wa_zprice-ativo.
 
-    INSERT zprice FROM p_gwa_zprice.
+    INSERT zprice FROM p_wa_zprice.
 
     IF sy-subrc NE 0.
       MESSAGE e001(zpedro)

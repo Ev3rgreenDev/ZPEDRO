@@ -5,4 +5,4 @@
 DATA:
   " TABELA ZPRICE
   gt_zprice  TYPE TABLE OF zprice,
-  gwa_zprice TYPE zprice.
+  wa_zprice  TYPE zprice.
