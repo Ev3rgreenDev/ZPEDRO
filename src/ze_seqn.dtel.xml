@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZE_SEQN</ROLLNAME>
+    <DDLANGUAGE>E</DDLANGUAGE>
+    <DOMNAME>ZD_SEQN</DOMNAME>
+    <HEADLEN>22</HEADLEN>
+    <SCRLEN1>09</SCRLEN1>
+    <SCRLEN2>19</SCRLEN2>
+    <SCRLEN3>22</SCRLEN3>
+    <DDTEXT>Sequência de pagamento</DDTEXT>
+    <REPTEXT>Sequência de pagamento</REPTEXT>
+    <SCRTEXT_S>SEQN PGTO</SCRTEXT_S>
+    <SCRTEXT_M>Sequência pagamento</SCRTEXT_M>
+    <SCRTEXT_L>Sequência de pagamento</SCRTEXT_L>
+    <DTELMASTER>E</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>
