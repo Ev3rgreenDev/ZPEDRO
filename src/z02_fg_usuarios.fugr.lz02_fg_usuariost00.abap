@@ -1,6 +1,18 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
 *---------------------------------------------------------------------*
+*...processing: ZBOM_H..........................................*
+DATA:  BEGIN OF STATUS_ZBOM_H                        .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZBOM_H                        .
+CONTROLS: TCTRL_ZBOM_H
+            TYPE TABLEVIEW USING SCREEN '9018'.
+*...processing: ZBOM_I..........................................*
+DATA:  BEGIN OF STATUS_ZBOM_I                        .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZBOM_I                        .
+CONTROLS: TCTRL_ZBOM_I
+            TYPE TABLEVIEW USING SCREEN '9019'.
 *...processing: ZCUST...........................................*
 DATA:  BEGIN OF STATUS_ZCUST                         .   "state vector
          INCLUDE STRUCTURE VIMSTATUS.
@@ -31,6 +43,18 @@ DATA:  BEGIN OF STATUS_ZMOV                          .   "state vector
 DATA:  END OF STATUS_ZMOV                          .
 CONTROLS: TCTRL_ZMOV
             TYPE TABLEVIEW USING SCREEN '9009'.
+*...processing: ZPP_ORD_H.......................................*
+DATA:  BEGIN OF STATUS_ZPP_ORD_H                     .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZPP_ORD_H                     .
+CONTROLS: TCTRL_ZPP_ORD_H
+            TYPE TABLEVIEW USING SCREEN '9020'.
+*...processing: ZPP_ORD_I.......................................*
+DATA:  BEGIN OF STATUS_ZPP_ORD_I                     .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZPP_ORD_I                     .
+CONTROLS: TCTRL_ZPP_ORD_I
+            TYPE TABLEVIEW USING SCREEN '9021'.
 *...processing: ZPRICE..........................................*
 DATA:  BEGIN OF STATUS_ZPRICE                        .   "state vector
          INCLUDE STRUCTURE VIMSTATUS.
@@ -110,11 +134,15 @@ DATA:  END OF STATUS_ZVND_P                        .
 CONTROLS: TCTRL_ZVND_P
             TYPE TABLEVIEW USING SCREEN '9017'.
 *.........table declarations:.................................*
+TABLES: *ZBOM_H                        .
+TABLES: *ZBOM_I                        .
 TABLES: *ZCUST                         .
 TABLES: *ZINV                          .
 TABLES: *ZLOC                          .
 TABLES: *ZMAT                          .
 TABLES: *ZMOV                          .
+TABLES: *ZPP_ORD_H                     .
+TABLES: *ZPP_ORD_I                     .
 TABLES: *ZPRICE                        .
 TABLES: *ZRES                          .
 TABLES: *ZSTOCK                        .
@@ -128,11 +156,15 @@ TABLES: *ZTACC_TX                      .
 TABLES: *ZVND_H                        .
 TABLES: *ZVND_I                        .
 TABLES: *ZVND_P                        .
+TABLES: ZBOM_H                         .
+TABLES: ZBOM_I                         .
 TABLES: ZCUST                          .
 TABLES: ZINV                           .
 TABLES: ZLOC                           .
 TABLES: ZMAT                           .
 TABLES: ZMOV                           .
+TABLES: ZPP_ORD_H                      .
+TABLES: ZPP_ORD_I                      .
 TABLES: ZPRICE                         .
 TABLES: ZRES                           .
 TABLES: ZSTOCK                         .

@@ -42,6 +42,18 @@
      <DOMVALUE_L>AJ</DOMVALUE_L>
      <DDTEXT>Ajuste</DDTEXT>
     </DD07V>
+    <DD07V>
+     <VALPOS>0006</VALPOS>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DOMVALUE_L>PR</DOMVALUE_L>
+     <DDTEXT>Produção – Recebimento do produto acabado (entrada)</DDTEXT>
+    </DD07V>
+    <DD07V>
+     <VALPOS>0007</VALPOS>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DOMVALUE_L>PC</DOMVALUE_L>
+     <DDTEXT>Produção – Consumo de componente (saída)</DDTEXT>
+    </DD07V>
    </DD07V_TAB>
   </asx:values>
  </asx:abap>

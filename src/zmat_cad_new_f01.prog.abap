@@ -34,9 +34,9 @@ FORM check_matnr CHANGING p_gv_matnr TYPE ze_matnr.
     INTO p_gv_matnr
     WHERE matnr = p_MATNR.
 
-  IF sy-subrc NE 0.
-    MESSAGE e002(zpedro)
-     WITH 'ZMAT'.
+  IF sy-subrc EQ 0.
+    MESSAGE e022(zpedro)
+      WITH 'material' 'ZMAT'.
   ENDIF.
 
 ENDFORM.

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_CAD_BOM</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Cadastro de BOM</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CMPNAME>GET_BOM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>get material number</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>IV_MATNR</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Número do material</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>IV_QTD_BASE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Quantidades</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>SET_BOM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>set material number</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>VALIDATE_BOM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>validate material number</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>WA_ZBOM_H</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Cabeçalho da Lista Técnica</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_BOM</CMPNAME>
+     <SCONAME>EV_BOM_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>ID da lista de materiais</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_BOM</CMPNAME>
+     <SCONAME>EV_BOM_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>ID da lista de materiais</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_BOM</CMPNAME>
+     <SCONAME>IV_ATIVO</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Ativo</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_BOM</CMPNAME>
+     <SCONAME>IV_MATNR</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Número do material</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_BOM</CMPNAME>
+     <SCONAME>IV_QTD_BASE</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Quantidades</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_BOM</CMPNAME>
+     <SCONAME>WA_ZBOM_H</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Cabeçalho da Lista Técnica</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_BOM</CMPNAME>
+     <SCONAME>IV_MATNR</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Número do material</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_BOM</CMPNAME>
+     <SCONAME>IV_QTD_BASE</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Quantidades</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_CAD_ITENS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Cadastro de Itens</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_ITENS</CMPNAME>
+     <SCONAME>EV_POS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Posição do componente</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_ITENS</CMPNAME>
+     <SCONAME>EV_POS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Posição do componente</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_ITENS</CMPNAME>
+     <SCONAME>IV_BOM_ID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>ID da lista de materiais</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_ITENS</CMPNAME>
+     <SCONAME>IV_MATNR_COMP</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Número do material</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_ITENS</CMPNAME>
+     <SCONAME>IV_QTD_COMP</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Quantidades</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_ITENS</CMPNAME>
+     <SCONAME>IV_UNID</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Unidade</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SET_ITENS</CMPNAME>
+     <SCONAME>WA_ZBOM_I</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Itens da Lista Técnica (componentes)</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_MATNR</CMPNAME>
+     <SCONAME>IV_MATNR_FIM</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Número do material</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>VALIDATE_MATNR</CMPNAME>
+     <SCONAME>IV_QTD_COMP</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Quantidades</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
+  </asx:values>
+ </asx:abap>
+</abapGit>
