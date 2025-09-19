@@ -45,18 +45,11 @@ START-OF-SELECTION.
 
 
 ******************************************************** CADASTRO DE BOM ******************************************
-
-    lo_CAD_BOM->get_bom(
-      CHANGING
-        ev_bom_id   = lv_bom_id
-    ).
-
     lo_CAD_BOM->set_bom(
       EXPORTING
         iv_matnr    = p_matnr
         iv_qtd_base = p_qtd_b
         iv_ativo    = p_ativo
-        ev_bom_id   = lv_bom_id
 *    IMPORTING
 *      wa_zbom_h   =
     ).
