@@ -290,7 +290,7 @@ FORM create_ZVND_I  USING    i_p_vbeln      TYPE vbeln
   MOVE p_gwa_zprice-currency TO p_gwa_zvnd_i-currency.
   MOVE p_gv_val_bruto        TO p_gwa_zvnd_i-val_item.
   MOVE i_p_desc              TO p_gwa_zvnd_i-desc_it.
-  MOVE gv_val_liq            TO p_gwa_zvnd_i-val_liq.
+  MOVE gv_val_liq            TO p_gwa_zvnd_i-val_liq_item.
 
   INSERT zvnd_i FROM p_gwa_zvnd_i.
 
