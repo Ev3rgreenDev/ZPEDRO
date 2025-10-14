@@ -134,6 +134,42 @@
      <MSGNR>020</MSGNR>
      <TEXT>Data de inicio não pode ser maior que data de fim.</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>021</MSGNR>
+     <TEXT>Lista de material selecionada já existe.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>022</MSGNR>
+     <TEXT>O &amp;1 inserido já foi cadastrado na tabela &amp;2.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>023</MSGNR>
+     <TEXT>O material inserido já foi cadastrado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>024</MSGNR>
+     <TEXT>Houve um erro ao deletar dados na tabela &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>025</MSGNR>
+     <TEXT>O campo obrigatório &amp; não foi inserido.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>026</MSGNR>
+     <TEXT>O &amp;1 inserido não existe na tabela &amp;2.</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>
