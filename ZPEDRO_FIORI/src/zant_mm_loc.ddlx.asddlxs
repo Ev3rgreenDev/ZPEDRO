@@ -1,0 +1,38 @@
+@Metadata.layer: #PARTNER
+@UI.headerInfo: {
+                  title:       { label: 'Manutenção de Locais' },
+                  description: {
+                                 label: 'ID do Local',
+                                 value: 'locid'
+                  },
+                  typeName:       'Manutenção de Local',
+                  typeNamePlural: 'Manutenção de Locais'
+}
+annotate view ZI_MM_LOC with
+{
+  @UI.facet: [{
+                id: 'LocIdentificationID',
+                type: #IDENTIFICATION_REFERENCE,
+                position: 10,
+                label: 'Dados Gerais'
+  }]
+
+  @UI: {
+         selectionField: [{ position: 10 }],
+         lineItem: [{ position: 10 }],
+         identification: [{ position: 10 }]
+  }
+  locid;
+
+  @UI: {
+         lineItem: [{ position: 20 }],
+         identification: [{ position: 20 }]
+  }
+  descr;
+
+  @UI: {
+         lineItem: [{ position: 30 }],
+         identification: [{ position: 30 }]
+  }
+  ativo;
+}

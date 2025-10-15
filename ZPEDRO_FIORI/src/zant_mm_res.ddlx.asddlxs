@@ -1,0 +1,74 @@
+@Metadata.layer: #PARTNER
+@UI.headerInfo: {
+                  title:       { label: 'Manutenção de Reserva' },
+                  description: {
+                                 label: 'ID da Reserva',
+                                 value: 'idres'
+                  },
+                  typeName:       'Manutenção de Reserva',
+                  typeNamePlural: 'Manutenção de Reservas'
+}
+annotate view ZI_MM_RES with
+{
+  @UI.facet: [{
+                id: 'IdentificationID',
+                type: #IDENTIFICATION_REFERENCE,
+                position: 10,
+                label: 'Dados Gerais'
+    },
+    {
+                id: 'MatID',
+                type: #LINEITEM_REFERENCE,
+                label: 'Material',
+                position: 20,
+                targetElement: '_mat'
+    },
+    {
+                id: 'LocID',
+                type: #LINEITEM_REFERENCE,
+                label: 'Local',
+                position: 30,
+                targetElement: '_loc'
+    }
+  ]
+
+  @UI: {
+         selectionField: [{ position: 40 }],
+         lineItem: [{ position: 40 }],
+         identification: [{ position: 40 }]
+  }
+  idres;
+
+  @UI: {
+         selectionField: [{ position: 50 }],
+         lineItem: [{ position: 50 }],
+         identification: [{ position: 50 }]
+  }
+  matnr;
+
+  @UI: {
+         selectionField: [{ position: 60 }],
+         lineItem: [{ position: 60 }],
+         identification: [{ position: 60 }]
+  }
+  locid;
+
+  @UI: {
+         lineItem: [{ position: 70 }],
+         identification: [{ position: 70 }]
+  }
+  qty_res;
+
+  @UI: {
+         lineItem: [{ position: 80 }],
+         identification: [{ position: 80 }]
+  }
+  data;
+
+  @UI: {
+         selectionField: [{ position: 90 }],
+         lineItem: [{ position: 90 }],
+         identification: [{ position: 90 }]
+  }
+  status;
+}

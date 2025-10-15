@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Component Name="/UI2/ADAPTATION_PAGE" ConfId="Z365B199D56708059BA376377358FA01" ConfType="07" ConfVar="" ChangedBy="UI2">
+ <Node Name="CONFIGURATION_CONTEXT" SimpleFormat="true">
+  <Item Index="000001" SimpleFormat="true">
+   <Node Name="PAGE" SimpleFormat="true">
+    <Item Index="000001" SimpleFormat="true">
+     <ID>X-SAP-UI2-CATALOGPAGE:ZTC_SD_SALES_ORDER</ID>
+     <Node Name="GADGET_USAGE" SimpleFormat="true">
+      <Item Index="000001" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY1GOYK6BLPE</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileNavigationActions</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">tile_navigation_actions</NAME>
+           <VALUE>[]</VALUE>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE/>
+          </Item>
+         </Node>
+        </Item>
+        <Item Index="000002" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">1</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000002" SimpleFormat="true">
+           <NAME Final="5 ">display_subtitle_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000003" SimpleFormat="true">
+           <NAME Final="5 ">display_info_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000004" SimpleFormat="true">
+           <NAME Final="5 ">display_search_keywords</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">2</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000002" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY1LJ12WK0PU</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">3</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000003" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY32NKU2T50I</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileNavigationActions</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">tile_navigation_actions</NAME>
+           <VALUE>[]</VALUE>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE/>
+          </Item>
+         </Node>
+        </Item>
+        <Item Index="000002" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">4</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000002" SimpleFormat="true">
+           <NAME Final="5 ">display_subtitle_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000003" SimpleFormat="true">
+           <NAME Final="5 ">display_info_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000004" SimpleFormat="true">
+           <NAME Final="5 ">display_search_keywords</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">5</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000004" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY35J6TXT602</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">6</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000005" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY7VLC0SIF1E</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileNavigationActions</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">tile_navigation_actions</NAME>
+           <VALUE>[]</VALUE>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE/>
+          </Item>
+         </Node>
+        </Item>
+        <Item Index="000002" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">7</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000002" SimpleFormat="true">
+           <NAME Final="5 ">display_subtitle_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000003" SimpleFormat="true">
+           <NAME Final="5 ">display_info_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000004" SimpleFormat="true">
+           <NAME Final="5 ">display_search_keywords</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">8</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000006" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY80DWXLMAOY</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileNavigationActions</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">tile_navigation_actions</NAME>
+           <VALUE>[]</VALUE>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE/>
+          </Item>
+         </Node>
+        </Item>
+        <Item Index="000002" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">9</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000002" SimpleFormat="true">
+           <NAME Final="5 ">display_subtitle_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000003" SimpleFormat="true">
+           <NAME Final="5 ">display_info_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000004" SimpleFormat="true">
+           <NAME Final="5 ">display_search_keywords</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">10</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000007" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY82LNI5KVC2</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileNavigationActions</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">tile_navigation_actions</NAME>
+           <VALUE>[]</VALUE>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE/>
+          </Item>
+         </Node>
+        </Item>
+        <Item Index="000002" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">11</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000002" SimpleFormat="true">
+           <NAME Final="5 ">display_subtitle_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000003" SimpleFormat="true">
+           <NAME Final="5 ">display_info_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true"/>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+          <Item Index="000004" SimpleFormat="true">
+           <NAME Final="5 ">display_search_keywords</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">12</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000008" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY84DSCXXEHU</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">13</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000009" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY86JR6PM2SI</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">14</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+      <Item Index="000010" SimpleFormat="true">
+       <USAGE_ID Final="5 ">9UHTF530KN3WIYY87GGV40HIA</USAGE_ID>
+       <Node Name="GU_BAG" SimpleFormat="true">
+        <Item Index="000001" SimpleFormat="true">
+         <ID Final="5 ">tileProperties</ID>
+         <SCOPE>CONFIGURATION</SCOPE>
+         <DELETED/>
+         <Node Name="GU_PROPERTY" SimpleFormat="true">
+          <Item Index="000001" SimpleFormat="true">
+           <NAME Final="5 ">display_title_text</NAME>
+           <VALUE/>
+           <VALUE_TRANSLATABLE Transl="true">15</VALUE_TRANSLATABLE>
+           <TRANSLATABLE>X</TRANSLATABLE>
+          </Item>
+         </Node>
+        </Item>
+       </Node>
+      </Item>
+     </Node>
+    </Item>
+   </Node>
+  </Item>
+ </Node>
+</Component>

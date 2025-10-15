@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_ZGW_SO_ORDER_DPC_EXT</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Data Provider Secondary Class</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CMPNAME>EXCEPTION_MESSAGE_LOCAL</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Método de mensagem de erro</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>EXCEPTION_MESSAGE_LOCAL</CMPNAME>
+     <SCONAME>/IWBEP/CX_MGW_BUSI_EXCEPTION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Business Exception</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>EXCEPTION_MESSAGE_LOCAL</CMPNAME>
+     <SCONAME>IT_MESSAGE</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Tipo de tabela de mensagem</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
+  </asx:values>
+ </asx:abap>
+</abapGit>

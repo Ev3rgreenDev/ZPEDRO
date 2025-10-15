@@ -1,0 +1,100 @@
+@Metadata.layer: #PARTNER
+@UI.headerInfo: {
+    title: {
+        label: 'Número do Item',
+        value: 'posnr'
+    },
+    description: {
+        label: 'Material',
+        value: 'matnr'
+    },
+    typeName: 'Item',
+    typeNamePlural: 'Itens'
+}
+annotate view ZI_SD_ITEMS_NEW with
+{
+  @UI.facet: [{
+    id: 'ItemsIdentificationID',
+    type: #IDENTIFICATION_REFERENCE,
+    position: 10,
+    label: 'Dados Gerais'
+  }]
+
+  @UI: {
+     selectionField: [{  position: 10 }],
+     lineItem: [{ position: 10 }],
+     identification: [{ position: 10 }]
+  }
+  vbeln;
+
+  @UI: {
+     selectionField: [{ position: 20 }],
+     lineItem: [{ position: 20 }],
+     identification: [{ position: 20 }]
+  }
+  posnr;
+
+  @UI: {
+   selectionField: [{ position: 30 }],
+   lineItem: [{ position: 30 }],
+   identification: [{ position: 30 }]
+  }
+  matnr;
+
+  @UI: {
+   selectionField: [{ position: 40 }],
+   lineItem: [{ position: 40 }],
+   identification: [{ position: 40 }]
+  }
+  locid;
+
+  @UI: {
+   lineItem: [{ position: 50 }],
+   identification: [{ position: 50 }]
+  }
+  qty;
+
+  @UI: {
+   lineItem: [{ position: 60 }],
+   identification: [{ position: 60 }]
+  }
+  price;
+
+  @UI: {
+   selectionField: [{ position: 70 }],
+   lineItem: [{ position: 70 }],
+   identification: [{ position: 70 }]
+  }
+  currency;
+
+  @UI: {
+   lineItem: [{ position: 80 }],
+   identification: [{ position: 80 }]
+  }
+  @EndUserText.label: 'Valor do Item'
+  val_item;
+
+  @UI: {
+   lineItem: [{ position: 80 }],
+   identification: [{ position: 80 }]
+  }
+  @EndUserText.label: 'Desconto do Item'
+  desc_it;
+
+  @UI: {
+   lineItem: [{ position: 90 }],
+   identification: [{ position: 90 }]
+  }
+  @EndUserText.label: 'Valor Liquído do Item'
+  val_liq_item;
+
+  @UI.facet: [{
+    id: 'MaterialID',
+    type: #IDENTIFICATION_REFERENCE,
+    label: 'Material',
+    position: 20,
+    targetElement: '_M'
+  }]
+  _M;
+
+}

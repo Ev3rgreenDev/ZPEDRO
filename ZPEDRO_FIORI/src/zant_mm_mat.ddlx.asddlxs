@@ -1,0 +1,45 @@
+@Metadata.layer: #PARTNER
+@UI.headerInfo: {
+                  title:       { label: 'Manutenção de Material' },
+                  description: {
+                                 label: 'ID do Material',
+                                 value: 'matnr'
+                  },
+                  typeName:       'Manutenção de Material',
+                  typeNamePlural: 'Manutenção de Materiais'
+}
+annotate view ZI_MM_MAT with
+{
+  @UI.facet: [{
+                id: 'MatIdentificationID',
+                type: #IDENTIFICATION_REFERENCE,
+                position: 10,
+                label: 'Dados Gerais'
+  }]
+
+  @UI: {
+         selectionField: [{ position: 10 }],
+         lineItem: [{ position: 10 }],
+         identification: [{ position: 10 }]
+  }
+  matnr;
+
+  @UI: {
+         lineItem: [{ position: 20 }],
+         identification: [{ position: 20 }]
+  }
+  descr;
+
+  @UI: {
+       selectionField: [{ position: 30 }],
+       lineItem: [{ position: 30 }],
+       identification: [{ position: 30 }]
+  }
+  unid;
+
+  @UI: {
+         lineItem: [{ position: 40 }],
+         identification: [{ position: 40 }]
+  }
+  ativo;
+}

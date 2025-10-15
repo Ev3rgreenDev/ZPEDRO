@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZPEDRO</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Classe de mensagens</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>Houve um erro ao inserir na tabela &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Erro ao gerar saida alv.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>A seleção &amp; não obteve dados de retorno.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Houve um erro ao atualizar a tabela &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>O CPF inserido não tem uma conta cadastrada na tabela de contas.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>O CPF inserido já existe na tabela de clientes.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>O nome inserido não corresponde ao nome cadastrado na tabela de contas.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Cliente cadastrado com sucesso!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Data de validade deve ser maior que a data de fabricação.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Preço deve ser maior do que zero.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Moeda selecionada não é válida.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>Preço do material cadastrado com sucesso!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>Preço do material atualizado com sucesso!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Pedido criado com sucesso!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Quantidade deve ser maior do que zero.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Desconto não pode ser menor do que zero.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>A moeda do item selecionado não corresponde com a moeda do pedido.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>Houve um erro ao obter &amp;1 cheque &amp;2.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Item &amp;1 adicionado ao pedido &amp;2 com sucesso!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>019</MSGNR>
+     <TEXT>Pedido &amp; fechado com sucesso!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>020</MSGNR>
+     <TEXT>Data de inicio não pode ser maior que data de fim.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>021</MSGNR>
+     <TEXT>Lista de material selecionada já existe.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>022</MSGNR>
+     <TEXT>O &amp;1 inserido já foi cadastrado na tabela &amp;2.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>023</MSGNR>
+     <TEXT>O material inserido já foi cadastrado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>024</MSGNR>
+     <TEXT>Houve um erro ao deletar dados na tabela &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>025</MSGNR>
+     <TEXT>O campo obrigatório &amp; não foi inserido.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>026</MSGNR>
+     <TEXT>O &amp;1 inserido não existe na tabela &amp;2.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZPEDRO</ARBGB>
+     <MSGNR>027</MSGNR>
+     <TEXT>Erro ao mover os dados da tabela &amp;.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

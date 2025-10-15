@@ -1,0 +1,94 @@
+@Metadata.layer: #PARTNER
+@UI.headerInfo: {
+                  title:       { label: 'Manutenção de Movimentações' },
+                  description: {
+                                 label: 'ID da movimentação',
+                                 value: 'idmov'
+                  },
+                  typeName:       'Manutenção de Movimentação',
+                  typeNamePlural: 'Manutenção de Movimentações'
+}
+annotate view ZI_MM_MOV with
+{
+  @UI.facet: [{
+                id: 'IdentificationID',
+                type: #IDENTIFICATION_REFERENCE,
+                position: 10,
+                label: 'Dados Gerais'
+    },
+    {
+                id: 'MatID',
+                type: #IDENTIFICATION_REFERENCE,
+                label: 'Material',
+                position: 20,
+                targetElement: '_mat'
+    },
+    {
+                id: 'LocID',
+                type: #IDENTIFICATION_REFERENCE,
+                label: 'Local',
+                position: 30,
+                targetElement: '_loc'
+    }
+  ]
+
+  @UI: {
+         selectionField: [{ position: 40 }],
+         lineItem: [{ position: 40 }],
+         identification: [{ position: 40 }]
+  }
+  idmov;
+
+  @UI: {
+         selectionField: [{ position: 50 }],
+         lineItem: [{ position: 50 }],
+         identification: [{ position: 50 }]
+  }
+  matnr;
+
+  @UI: {
+         selectionField: [{ position: 60 }],
+         lineItem: [{ position: 60 }],
+         identification: [{ position: 60 }]
+  }
+  locid;
+
+  @UI: {
+         selectionField: [{ position: 70 }],
+         lineItem: [{ position: 70 }],
+         identification: [{ position: 70 }]
+  }
+  tpmov;
+
+  @UI: {
+         lineItem: [{ position: 80 }],
+         identification: [{ position: 80 }]
+  }
+  qty;
+
+  @UI: {
+         lineItem: [{ position: 90 }],
+         identification: [{ position: 90 }]
+  }
+  data;
+
+
+  @UI: {
+         lineItem: [{ position: 100 }],
+         identification: [{ position: 100 }]
+  }
+  hora;
+
+  @UI: {
+         lineItem: [{ position: 110 }],
+         identification: [{ position: 110 }]
+  }
+  obs;
+
+
+  @UI: {
+         lineItem: [{ position: 120 }],
+         identification: [{ position: 120 }]
+  }
+  loc_dest;
+}

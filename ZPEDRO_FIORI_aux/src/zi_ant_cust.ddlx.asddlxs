@@ -1,0 +1,50 @@
+@Metadata.layer: #PARTNER
+@UI.headerInfo: {
+    title: {
+        label: 'Cliente',
+        value: 'custid'
+    },
+    description: {
+        label: 'Nome do cliente',
+        value: 'nome'
+    },
+    typeName: 'Cliente',
+    typeNamePlural: 'Clientes'
+}
+annotate view ZI_SD_CUST_NEW with
+{
+  @UI.facet: [{
+   id: 'CustIdentificationID',
+   type: #IDENTIFICATION_REFERENCE,
+   position: 10,
+   label: 'Dados Gerais'
+  }]
+
+  @UI: {
+     selectionField: [{ position: 10 }],
+     lineItem: [{ position: 10 }],
+     identification: [{ position: 10 }]
+  }
+  custid;
+
+  @UI: {
+     selectionField: [{ position: 20 }],
+     lineItem: [{ position: 20 }],
+     identification: [{ position: 20 }]
+  }
+  cpf;
+
+  @UI: {
+     selectionField: [{ position: 30 }],
+     lineItem: [{ position: 30 }],
+     identification: [{ position: 30 }]
+  }
+  nome;
+
+  @UI: {
+     lineItem: [{ position: 40 }],
+     identification: [{ position: 40 }]
+  }
+  ativo;
+
+}
